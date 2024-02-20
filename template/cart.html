@@ -1,0 +1,46 @@
+{% extends "home.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/cart.css' %}">
+<div class="container">
+    <div class="cart-header">
+        <h1>Your Cart</h1>
+    </div>
+    <ul>
+        {% for item in cart_items %}
+        <li class="cart-item">
+            <div class="cart-item-details">
+                <div class="cart-item-name">{{ item.product.name }}</div>
+                <form action="{% url 'remove-from-cart' item.product.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="remove-from-cart-btn" type="submit">Remove</button>
+                </form>
+            </div>
+            <div class="item-quantity">
+                <form action="{% url 'increase-cart-item' item.product.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="quantity-btn increase-quantity" type="submit">+</button>
+                </form>
+                <span class="cart-item-quantity" data-quantity="{{ item.quantity }}">{{ item.quantity }}</span>
+                <form action="{% url 'decrease-cart-item' item.product.id %}" method="post">
+                    {% csrf_token %}
+                    <button class="quantity-btn decrease-quantity" type="submit">-</button>
+                </form>
+            </div>
+            <div class="cart-item-price" data-price="{{ item.product.price }}">
+                &#8377;{{ item.product.price }}
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+    <p class="total-price-data"><span id="total-price"></span></p>
+
+
+    <a class="continue-shopping-link" href="{% url 'product-list' %}">Continue Shopping</a>
+    <a class="checkout-button" href="{% url 'checkout' %}">Checkout</a>
+</div>
+
+
+<script src="{% static 'js/cart.js' %}"></script>
+
+{% endblock %}

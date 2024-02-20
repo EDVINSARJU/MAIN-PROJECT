@@ -1,0 +1,459 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>WELCOME TO THANGAM JEWELS</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="eCommerce HTML Template Free Download" name="keywords">
+    <meta content="eCommerce HTML Template Free Download" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'lib/slick/slick.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/slick/slick-theme.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<style>'
+    
+    
+    
+    h4 {
+    font-size: 24px; /* Adjust the font size as needed */
+    color: #333; /* Set the color of the text */
+    margin-bottom: 10px; /* Add some bottom margin for spacing */
+}'
+    /* General Styles */
+    body {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Top Bar Styles */
+    .top-bar {
+        color: white;
+    }
+
+    .nav {
+        background-color: #343a40;
+        color: white;
+    }
+
+    .nav a {
+        color: white;
+    }
+
+    .nav a:hover {
+        color: #f8f9fa;
+    }
+
+    .container-fluid {
+        padding: 0 20px;
+    }
+
+    .navbar-brand {
+        font-size: 24px;
+        font-weight: bold;
+    }
+
+    .navbar-toggler-icon {
+        background-color: white;
+    }
+
+    .navbar-toggler {
+        border: none;
+    }
+
+    /* Wishlist Page Styles */
+    h1 {
+        text-align: center;
+    }
+
+    .wishlist-page {
+        margin: 20px;
+    }
+
+    .wishlist-page-inner {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .cart-item {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin: 10px;
+        padding: 10px;
+        width: 300px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Add this style to ensure consistent size for product images */
+    .product-image img {
+        width: 100%;
+        height: 200px; /* Adjust the height as per your design */
+        object-fit: cover; /* This property ensures the image maintains its aspect ratio */
+        border-radius: 4px;
+        margin-bottom: 10px;
+    }
+
+    .product-details p {
+        margin: 5px 0;
+    }
+
+    .add-to-cart-btn {
+        background-color: #4CAF50; /* Green color */
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    form {
+        display: inline-block; 
+    }
+
+    button {
+        background-color: #FF6F61;
+        color: #ffffff;
+        padding: 8px 16px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    button:hover {
+        background-color: #ffffff;
+        color: #FF6F61;
+    }
+
+    .header {
+        background-color: #f8f9fa;
+        text-align: center;
+        padding: 20px 0;
+        margin-bottom: 20px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 15px;
+    }
+
+    /* Customer Information Section */
+    #customer-info {
+        margin-bottom: 30px;
+    }
+
+    #customer-info h2 {
+        margin-bottom: 20px;
+    }
+
+    .contact-form input[type="text"],
+    .contact-form input[type="email"],
+    .contact-form input[type="tel"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    .contact-form input[type="submit"] {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+
+    .contact-form input[type="submit"]:hover {
+        background-color: #0056b3;
+    }
+
+    .row {
+        background-color: white;
+        padding: 20px; /* Add padding for better visual appearance */
+    }
+    
+    
+    .contact-form {
+        background-color: white;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-primary {
+        width: 70%;
+    }
+
+   
+    
+    .edit-container h1 {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+    
+    .contact-form {
+      
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    .contact-form label {
+        font-weight: bold;
+    }
+    
+      
+    .btn-primaryy {
+        width: 60%;
+    }
+    
+
+
+    
+    
+</style>
+<body>
+    <div class="nav">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                <a href="#" class="navbar-brand"></a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+
+                
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto">
+                        <a href="{% url 'loginview' %}" class="nav-item nav-link active">HOME</a>
+                        <a href="{% url 'contact' %}" class="nav-item nav-link active">Contact Us</a>
+                        <a href="#" class="nav-item nav-link active">Cart</a>
+                        {% if user.is_authenticated %}
+                            <a href="" class="nav-item nav-link" style="color: white;">{{ user.username }}</a>
+                            <a href="{% url 'logout' %}" class="nav-item nav-link" style="color: white;">Logout</a>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="nav-item nav-link" style="color: white;">Login</a>
+                        {% endif %}
+
+                        
+
+                        <div class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User account</a>
+                            <div class="dropdown-menu">
+                                <a href="{% url "register" %}" class="nav-item nav-link">REGISTER</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+   
+    <h1>Shopping Cart</h1>
+    <div class="wishlist-page">
+        <div class="wishlist-page-inner">
+            {% if cart_items %}
+                {% for item in cart_items %}
+                    <div class="cart-item" id="cart-item-{{ item.id }}">
+                        <div class="product-image">
+                            <img src="{{ item.product.product_image.url }}" alt="{{ item.product.product_name }}">
+                        </div>
+                        <div class="product-details">
+                            <p><strong>Product:</strong> {{ item.product.product_name }}</p>
+                            <p><strong>Price:</strong> ₹{{ item.product.sale_price }}</p>
+                            <p><strong>Total:</strong> ₹{{ item.calculate_total_price }}</p>
+                        </div>
+                        <div>
+                            <form method="post" action="{% url 'remove_from_cart' item.id %}">
+                                {% csrf_token %}
+                                <button type="submit">Remove</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                {% endfor %}
+            {% else %}
+                <p>Your cart is empty.</p>
+            {% endif %}        
+    </div>
+  {% comment %} </div> {% endcomment %}
+  <center>
+  <div class="container">
+    <div class="row">
+        <div class="col-md-12 total-amount-container">
+            <h4 style="margin: 5; display: inline-block;">Total Amount: <span id="total-amount"> ₹{{ total_price }} </span></h4>
+            <a href="{% url 'payment' %}" class="btn btn-primary" style="display: inline-block;">Proceed to Payment</a>
+        </div>
+    </div>
+</div>
+
+   <br><br>
+
+   <div class="edit-container">
+    <div class="row">
+        <center>
+            <h1>Edit Customer Information</h1>
+       
+        <div class="col-md-7">
+            <section id="edit-customer-info">
+                <div class="contact-form">
+                   
+                        {% csrf_token %}
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label for="name">Name</label>
+                                <input type="text" class="form-control" name="name" id="name" value="{{ user.username }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="email">Email</label>
+                                <input type="email" class="form-control" name="email" id="email" value="{{ user.email }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="phone">Phone</label>
+                                <input type="tel" class="form-control" name="phone" id="phone" value="{{ user.phone_number }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="pincode">Pincode</label>
+                                <input type="text" class="form-control" name="pincode" id="pincode" value="{{ user.pincode }}" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="address">Address</label>
+                                <textarea class="form-control" name="address" id="address" rows="4" required>{{ user.address }}</textarea>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primaryy">Update Details</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>
+
+
+    <br><br>
+    <div class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <h2>Get in Touch</h2>
+                        <div class="contact-info">
+                            <p><i class="fa fa-map-marker"></i>vellore,Tamil nadu,india</p>
+                            <p><i class="fa fa-envelope"></i>edvinsarju@gmail.com</p>
+                            <p><i class="fa fa-phone"></i>8923567845</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <h2>Follow Us</h2>
+                        <div class="contact-info">
+                            <div class="social">                                
+                                <a href=""><i class="fab fa-facebook-f"></i></a>
+                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <h2>Company Info</h2>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms & Condition</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <h2>Purchase Info</h2>
+                        <ul>
+                            <li><a href="#">Payment Policy</a></li>
+                            <li><a href="#">Shipping Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row payment align-items-center">
+                <div class="col-md-6">
+                    <div class="payment-method">
+                        <h2>We Accept:</h2>
+                        <img src="{% static 'img/payment-method.png' %}" alt="Payment Method" />
+                    </div>
+                </div>                  
+                    </div>
+                </div>
+            </div>
+        </div>
+   
+
+<div class="footer-bottom">
+
+            <div class="col-md-5 copyright">
+                <p>Copyright &copy; <a href="#">THANGAM JEWELLERY</a>. All Rights Reserved</p>
+            </div>
+
+    </div>
+</div>
+    <script>
+        function updateTotalAmount() {
+            var total = 0;
+    
+            // Loop through each item in the cart
+            {% for item in cart_items %}
+                var unitPrice = parseFloat(document.getElementById('total-price-{{ item.id }}').getAttribute('data-unit-price'));
+                var totalPriceForItem = unitPrice; // Assuming no quantity for each item
+                total += totalPriceForItem;
+    
+                // Update the total price for each item in the UI
+                var totalPriceElement = document.getElementById('total-price-{{ item.id }}');
+                totalPriceElement.innerText = '₹' + totalPriceForItem.toFixed(2);
+            {% endfor %}
+    
+            // Update the total amount field
+            var totalAmountElement = document.getElementById('total-amount');
+            totalAmountElement.innerText = '₹' + total.toFixed(2);
+        }
+    
+        document.addEventListener('DOMContentLoaded', function () {
+            // Calculate total amount on page load
+            updateTotalAmount();
+    
+            // Place order button click event
+            document.getElementById('place-order-btn').addEventListener('click', function () {
+                // Update the hidden input field with total amount
+                document.getElementById('total-amount-input').value = parseFloat(document.getElementById('total-amount').innerText.substring(1));
+    
+                // Submit the form
+                document.getElementById('checkout-form').submit();
+            });
+        });
+    </script>
+    
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+</head>
+<body>
+    <h1>Order List</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>User</th>
+                <th>Total Amount</th>
+                <th>Created At</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+       <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.id }}</td>
+                    <td>{{ order.user.username }}</td>
+                    <td>₹{{ order.total_amount }}</td>
+                    <td>{{ order.created_at }}</td>
+                    <td>
+                        <a href="{% url 'order_details' order.id %}">View Details</a>
+                    </td>
+                </tr>
+            {% endfor %} 
+        </tbody>
+    </table>
+</body>
+</html>
