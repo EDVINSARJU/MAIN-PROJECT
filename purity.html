@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Purity Prediction</title>
+</head>
+<body>
+    <h1>Gold Purity Prediction</h1>
+  <form method="post">
+    {% csrf_token %}
+    <label for="chemical_composition">Chemical Composition:</label>
+    <input type="text" id="chemical_composition" name="chemical_composition" placeholder="Enter chemical composition"><br><br>
+
+    <label for="density">Density:</label>
+    <input type="text" id="density" name="density" placeholder="Enter density"><br><br>
+
+    <!-- Add more input fields as needed -->
+
+    <button type="submit">Predict Purity</button>
+</form>
+
+</body>
+</html>

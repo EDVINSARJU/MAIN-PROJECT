@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Successful</title>
+</head>
+<body>
+    <h1>Payment Successful</h1>
+    
+    {% if error_message %}
+        <p>{{ error_message }}</p>
+    {% else %}
+        <h2>Razorpay Payments:</h2>
+        <ul>
+            {% for razorpay_payment in razorpay_payments %}
+                <li>
+                    <h3>{{ razorpay_payment.product.product_name }}</h3>
+                    <p><strong>Product ID:</strong> {{ razorpay_payment.product.product_id }}</p>
+                    <p><strong>Price:</strong> ${{ razorpay_payment.total_price }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

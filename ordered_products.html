@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ordered Products</title>
+</head>
+<body>
+    <h1>Ordered Products</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Order Date</th>
+                <!-- Add more columns as needed -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for ordered_product in ordered_products %}
+
+            <tr>
+                <td>{{ ordered_product.product.product_name }}</td>
+                <td>{{ ordered_product.order_date }}</td>
+                <!-- Display more details about the ordered product -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>

@@ -1,0 +1,90 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Category and Subcategory Selection</title>
+    <!-- jQuery library -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        /* Add your CSS styles here */
+    </style>
+</head>
+<body>
+
+<div class="form-group">
+    <label for="category">Category</label>
+    <select id="category" name="category" class="form-control" required>
+        <option value="">Select</option>
+        <option value="gold">Gold</option>
+        <option value="diamond">Diamond</option>
+        <option value="silver">Silver</option>
+    </select>
+</div>
+
+<div class="form-group">
+    <label for="subcategory">Subcategory</label>
+    <select id="subcategory" name="subcategory" class="form-control" required>
+        <option value="">Select</option>
+        <!-- Default subcategory option -->
+    </select>
+</div>
+
+<script>
+    // Function to fetch categories from the backend
+    function fetchCategories() {
+        $.ajax({
+            url: '/fetch-categories/', // Update the URL as per your Django URL pattern
+            type: 'GET',
+            success: function (data) {
+                const categorySelect = document.getElementById('category');
+                categorySelect.innerHTML = '<option value="">Select</option>';
+                data.forEach(function (category) {
+                    const option = document.createElement('option');
+                    option.value = category.id;
+                    option.text = category.name;
+                    categorySelect.appendChild(option);
+                });
+            }
+        });
+    }
+
+    // Function to fetch subcategories based on selected category
+    function fetchSubcategories(categoryId) {
+        $.ajax({
+            url: '/fetch-subcategories/?category_id=' + categoryId, // Update the URL as per your Django URL pattern
+            type: 'GET',
+            success: function (data) {
+                const subcategorySelect = document.getElementById('subcategory');
+                subcategorySelect.innerHTML = '<option value="">Select</option>';
+                data.forEach(function (subcategory) {
+                    const option = document.createElement('option');
+                    option.value = subcategory.id;
+                    option.text = subcategory.name;
+                    subcategorySelect.appendChild(option);
+                });
+            }
+        });
+    }
+
+    // Call the fetchCategories function on page load
+    $(document).ready(function () {
+        fetchCategories();
+    });
+
+    // Attach change event listener to category select
+    $('#category').on('change', function () {
+        const categoryId = $(this).val();
+        if (categoryId) {
+            fetchSubcategories(categoryId);
+        } else {
+            // Clear subcategory options if no category is selected
+            $('#subcategory').html('<option value="">Select</option>');
+        }
+    });
+</script>
+
+</body>
+</html>

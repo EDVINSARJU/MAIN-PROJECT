@@ -1,0 +1,387 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>THANGAM</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="eCommerce HTML Template Free Download" name="keywords">
+    <meta content="eCommerce HTML Template Free Download" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="{% static 'https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap' %}" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'lib/slick/slick.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/slick/slick-theme.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+<style>
+    body {
+        background-color: #fff; /* Set background color to white */
+    }
+
+    .header {
+        text-align: center;
+        background-color: #fff;
+        padding: 20px 0;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 2;
+        margin-bottom: 20px; /* Add margin to create space below the header */
+    }
+
+    .container {
+        background-color: transparent;
+        padding: -5px;
+        height: 1px;
+        margin-top: -30px;
+        position: relative;
+    }
+
+    .col-md-6 {
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+   
+
+</style>
+<body>
+<!-- Nav Bar Start -->
+<div class="nav">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <a href="#" class="navbar-brand"></a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav ml-auto"> <!-- Add ml-auto class to move other buttons to the right -->
+                    <a href="" class="nav-item nav-link active"></a>
+                    <div class="nav-item dropdown">
+                       
+                         <!-- Link to login page -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<div class="header">
+    <h1>Thangam Jewellery</h1>
+</div>
+
+{% comment %} <div class="center-form">
+    <div class="container">
+        <div class="row">
+            <!-- Left Column for Image -->
+            <div class="col-md-6">
+                <img src="{% static 'img/aa.jpg' %}" alt="Image Description" class="img-fluid">
+            </div> {% endcomment %}
+
+
+
+       <center> <div class="col-md-6">
+            <div class="header">
+                    <h3 class="text-center">Registration</h3>
+                <div class="card-body">
+                    <form id="register" action="{% url 'register' %}" method="POST">
+                        
+                        {% csrf_token %}
+                    
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" class="form-control" required>
+                            <div class="error-message" id="username-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                            <div class="error-message" id="email-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="text" id="phone_number" name="phone_number" class="form-control" required>
+                            <div class="error-message" id="phone-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label>Gender</label><br>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="male" value="male" required>
+                                <label class="form-check-label" for="male">Male</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="gender" id="female" value="female" required>
+                                <label class="form-check-label" for="female">Female</label>
+                            </div>
+                            <div class="error-message" id="gender-error"></div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" name="address" class="form-control" rows="4" required></textarea>
+                            <div class="error-message" id="address-error"></div>
+                        </div>
+                        
+                       <div class="form-group">
+                        <label for="pincode">Pincode</label>
+                        <input type="text" id="pincode" name="pincode" class="form-control" required>
+                        <div class="error-message" id="pincode-error"></div>
+                    </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                            <div class="error-message" id="password-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="confirm-password">Confirm Password</label>
+                            <input type="password" id="confirm-password" name="confirm_password" class="form-control" required>
+                            <div class="error-message" id="confirm-password-error"></div>
+                        </div>
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Register</button><br>
+                            <p>Already have an account? <a href="{% url 'login' %}">Sign In</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</form></center>
+
+<script>
+
+    {% if messages %}
+        {% for message in messages %}
+            // Check the message level for the type (e.g., success, error)
+            {% if message.tags == 'success' %}
+                // alert("Success: {{ message }}");
+            {% elif message.tags == 'error' %}
+                // alert("Error: {{ message }}");
+            {% else %}
+                // alert("Info: {{ message }}");
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    const form = document.getElementById('register');
+    const usernameInput = document.getElementById('username');
+    const emailInput = document.getElementById('email');
+    const passwordInput = document.getElementById('password');
+    const confirmPasswordInput = document.getElementById('confirm-password');
+    const usernameError = document.getElementById('username-error');
+    const emailError = document.getElementById('email-error');
+    const passwordError = document.getElementById('password-error');
+    const confirmPasswordError = document.getElementById('confirm-password-error');
+
+    // Function to validate username in real-time
+    usernameInput.addEventListener('input', function () {
+        if (usernameInput.value.length < 3) {
+            usernameInput.classList.add('is-invalid');
+            usernameError.textContent = 'Username must be at least 3 characters';
+        } else {
+            usernameInput.classList.remove('is-invalid');
+            usernameError.textContent = '';
+        }
+    });
+
+    // Function to validate email in real-time
+    emailInput.addEventListener('input', function () {
+        const emailPattern = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+        if (!emailPattern.test(emailInput.value)) {
+            emailInput.classList.add('is-invalid');
+            emailError.textContent = 'Invalid email address';
+        } else {
+            emailInput.classList.remove('is-invalid');
+            emailError.textContent = '';
+        }
+    });
+
+    // Function to validate password in real-time
+    passwordInput.addEventListener('input', function () {
+        if (passwordInput.value.length < 6) {
+            passwordInput.classList.add('is-invalid');
+            passwordError.textContent = 'Password must be at least 6 characters';
+        } else {
+            passwordInput.classList.remove('is-invalid');
+            passwordError.textContent = '';
+        }
+    });
+
+    // Function to confirm password in real-time
+    confirmPasswordInput.addEventListener('input', function () {
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            confirmPasswordInput.classList.add('is-invalid');
+            confirmPasswordError.textContent = 'Passwords do not match';
+        } else {
+            confirmPasswordInput.classList.remove('is-invalid');
+            confirmPasswordError.textContent = '';
+        }
+    });
+
+    // Form submission validation
+    form.addEventListener('submit', function (e) {
+        let valid = true;
+
+        // Additional validation logic can be added here if needed
+        if (usernameInput.value.length < 3) {
+            valid = false;
+            usernameInput.classList.add('is-invalid');
+            usernameError.textContent = 'Username must be at least 3 characters';
+        }
+
+        const allowedDomains = ['example.com', 'yourdomain.com']; // Add allowed domains here
+        const enteredDomain = emailInput.value.split('@')[1];
+        if (!emailPattern.test(emailInput.value) || !allowedDomains.includes(enteredDomain)) {
+            valid = false;
+            emailInput.classList.add('is-invalid');
+            emailError.textContent = 'Invalid email address or domain not allowed';
+        }
+
+        if (passwordInput.value.length < 6) {
+            valid = false;
+            passwordInput.classList.add('is-invalid');
+            passwordError.textContent = 'Password must be at least 6 characters';
+        }
+
+        if (passwordInput.value !== confirmPasswordInput.value) {
+            valid = false;
+            confirmPasswordInput.classList.add('is-invalid');
+            confirmPasswordError.textContent = 'Passwords do not match';
+        }
+
+        if (!valid) {
+            e.preventDefault();
+        }
+    });
+    function checkUsernameExists(username) {
+        fetch('/check-username-email/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `username=${username}`,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.username_exists) {
+                usernameInput.classList.add('is-invalid');
+                usernameError.textContent = 'This username already exists';
+            }
+        })
+        .catch(error => {
+            console.error('Error checking username:', error);
+        });
+    }
+
+    // Function to check if the email already exists
+    function checkEmailExists(email) {
+        fetch('/check-username-email/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: `email=${email}`,
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.email_exists) {
+                emailInput.classList.add('is-invalid');
+                emailError.textContent = 'This email address is already in use';
+            }
+        })
+        .catch(error => {
+            console.error('Error checking email:', error);
+        });
+    }
+
+
+    const addressInput = document.getElementById('address');
+const addressError = document.getElementById('address-error');
+
+// Function to validate address in real-time
+addressInput.addEventListener('input', function () {
+    // Check if the address meets certain criteria (at least 5 characters)
+    if (addressInput.value.length < 5) {
+        addressInput.classList.add('is-invalid');
+        addressError.textContent = 'Address must be at least 5 characters';
+    } else {
+        addressInput.classList.remove('is-invalid');
+        addressError.textContent = '';
+    }
+});
+
+
+const pincodeInput = document.getElementById('pincode');
+const pincodeError = document.getElementById('pincode-error');
+
+// Function to validate pincode in real-time
+pincodeInput.addEventListener('input', function () {
+    // Check if the pincode follows a specific format (example: exactly 6 digits)
+    const pincodePattern = /^\d{6}$/; // Assumes a 6-digit pincode
+
+    if (!pincodePattern.test(pincodeInput.value)) {
+        pincodeInput.classList.add('is-invalid');
+        pincodeError.textContent = 'Invalid pincode (should be 6 digits)';
+    } else {
+        pincodeInput.classList.remove('is-invalid');
+        pincodeError.textContent = '';
+    }
+});
+
+// Function to validate gender selection
+const genderError = document.getElementById('gender-error');
+const genderInputs = document.querySelectorAll('input[name="gender"]');
+
+genderInputs.forEach(function (input) {
+    input.addEventListener('input', function () {
+        // Check if at least one gender option is selected
+        const isGenderSelected = Array.from(genderInputs).some(input => input.checked);
+
+        if (!isGenderSelected) {
+            genderError.textContent = 'Please select a gender';
+        } else {
+            genderError.textContent = '';
+        }
+    });
+});
+    const phoneInput = document.getElementById('phone_number');
+    const phoneError = document.getElementById('phone-error');
+    
+    // Function to validate phone number in real-time
+    phoneInput.addEventListener('input', function () {
+        // Check if the phone number follows a specific format (for example, exactly 10 digits)
+        const phonePattern = /^\d{10}$/; // Assumes a 10-digit phone number
+    
+        if (!phonePattern.test(phoneInput.value)) {
+            phoneInput.classList.add('is-invalid');
+            phoneError.textContent = 'Invalid phone number';
+        } else {
+            phoneInput.classList.remove('is-invalid');
+            phoneError.textContent = '';
+        }
+    });
+ 
+</script>
+
+    
+    
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'lib/slick/slick.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>

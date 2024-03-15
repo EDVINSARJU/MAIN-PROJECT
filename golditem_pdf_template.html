@@ -1,0 +1,53 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold Item Details</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gold Item Details</h1>
+    <table>
+        <tr>
+            <th>Product Name</th>
+            <td>{{ gold_item.product.product_name }}</td>
+        </tr>
+        <tr>
+            <th>Weight (grams)</th>
+            <td>{{ gold_item.weight }}</td>
+        </tr>
+        <tr>
+            <th>Volume (cm^3)</th>
+            <td>{{ gold_item.volume }}</td>
+        </tr>
+        <tr>
+            <th>Calculated Purity (%)</th>
+            <td>{{ gold_item.calculated_purity }}</td>
+        </tr>
+        <tr>
+            <th>Description</th>
+            <td>
+                <!-- Add your description here -->
+                Gold density is a measure of how much mass fits within a given volume. It is typically expressed in grams per cubic centimeter (g/cm^3).
+                Purity refers to the percentage of gold in the alloy, with higher percentages indicating purer gold.
+                Volume represents the amount of space occupied by the gold item, measured in cubic centimeters (cm^3).
+                <!-- Add more detailed description if needed -->
+            </td>
+        </tr>
+        <!-- Add more fields as needed -->
+    </table>
+</body>
+</html>

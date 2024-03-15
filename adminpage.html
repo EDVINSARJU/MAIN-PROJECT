@@ -1,0 +1,544 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>WELCOME TO THANGAM JEWELS </title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="eCommerce HTML Template Free Download" name="keywords">
+        <meta content="eCommerce HTML Template Free Download" name="description">
+
+        
+        <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+        <link href="{% static 'https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap' %}" rel="stylesheet">
+
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="{% static 'lib/slick/slick.css' %}" rel="stylesheet">
+        <link href="{% static 'lib/slick/slick-theme.css' %}" rel="stylesheet">
+
+
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        <style>
+            /* Add this style for the Logout button container */
+            .logout-button-container {
+                position: absolute;
+                top: 0; /* Align it to the top of the header */
+                right: 20px; /* Align it to the right side of the header with 20px spacing */
+                color: #ccc;
+            }
+            
+            /* Style for the Logout button */
+            .logout-button-container a {
+                color: #666; /* Button text color */
+                text-decoration: none;
+                padding: 8px 16px; /* Adjust the padding for button size */
+                border-radius: 4px;
+            }
+            
+            
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 0;
+            }
+            
+            /* Header and Navbar Styles */
+            .header_section {
+                background-color: #333; /* Update with your desired background color */
+                color: #fff;
+                padding: 10px;
+            }
+            
+            .custom_nav-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+            }
+            
+            .navbar-toggler {
+                display: none; /* Hide the default navbar toggler */
+            }
+            
+            .navbar-nav {
+                list-style: none;
+                padding: 0;
+                display: flex;
+            }
+            
+            .nav-item {
+                margin-right: 10px;
+            }
+            
+            .nav-link {
+                color: #fff;
+                text-decoration: none;
+                padding: 10px;
+                transition: color 0.3s ease-in-out;
+            }
+            
+            .nav-link:hover {
+                color: #007bff;
+            }
+            
+            .nav_search-btn {
+                background-color: #007bff;
+                color: #fff;
+                border: none;
+                padding: 5px 10px;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            
+            .nav_search-btn:hover {
+                background-color: #0056b3;
+            }
+            
+            /* Sidebar Styles */
+            .sidebar {
+                width: 20%;
+                background-color: #f0f0f0;
+                padding: 20px;
+                position: fixed;
+                height: 100%;
+                overflow: auto;
+            }
+            
+            .sidebar-item {
+                margin-bottom: 20px;
+                padding: 10px;
+                background-color: #ccc;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+            
+            .sidebar-item:hover {
+                background-color: #ddd;
+            }
+            
+            .account-settings {
+                background-color: #f9f9f9;
+                border: 1px solid #ddd;
+                padding: 20px;
+            }
+            
+            .account-box {
+                background-color: #fff;
+                border: 1px solid #ddd;
+                padding: 10px;
+                margin-top: 10px;
+            }
+            
+            /* Additional styles for content on the right side */
+            .content {
+                margin-left: 20%;
+                padding: 20px;
+            }
+            
+        </style>
+    </head>
+    <div class="nav">
+        <div class="container-fluid">
+            <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                <a href="#" class="navbar-brand"></a>
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>        
+
+                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                    <div class="navbar-nav ml-auto"> 
+                        <a href="" class="nav-item nav-link" style="color: white;"></a>
+                       
+                        </div>
+                    </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+    <body class="sub_page">
+        <div class="hero_area">
+            <header class="header_section">
+                <!-- Your header content goes here -->
+                <div class="logout-button-container">
+                    <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+                    
+                </div>
+               
+            </header>
+        </div>
+        <section class="inner_page_head">
+        
+            <div class="container_fuild">
+                
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="full">
+                            <h4 class="left-corner-heading">WELCOME ADMIN</h4>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <div class="sidebar">
+            
+
+            <div class="sidebar-item">
+                {% comment %} ORDERS {% endcomment %}
+                <div class="account-box">
+                    <a href="{% url 'feedback_list' %}" class="content-item">FEEDBACK</a>
+                </div>
+            </div>
+            
+            <div class="sidebar-item">
+                {% comment %} ORDERS {% endcomment %}
+                <div class="account-box">
+                    <a href="{% url 'calculate_purity' %}" class="content-item">PURITY OF GOLD </a>
+                </div>
+     
+            </div>
+            <div class="sidebar-item">
+                PRODUCT
+                <div class="account-box">
+                    <div class="content-item" onclick="loadAddProductForm()">ADD PRODUCT</div>
+                </div>
+    
+                <div class="account-box">
+                    <a class="content-item" href="{% url 'viewproduct' %}">VIEW PRODUCT</a>
+                </div>
+            </div>
+            <div class="sidebar-item">USERS LISTING</div>   
+            <div class="account-box">
+                <a class="content-item" href="{% url 'staff_list' %}">STAFF</a>
+            </div>
+            
+            <div class="account-box">
+                <a class="content-item" href="{% url 'customer_list' %}">CUSTOMERS</a>
+            </div>
+        </div>
+        <div class="content" id="middle-content">
+            <div class="content" id="middle-content">
+                <img src="{% static 'img/purity.jpg' %}"  style="width: 100%; max-width: 800px; height: auto;" />
+            </div>
+            
+        </div>
+    
+    
+        {% comment %} <div class="content" id="middle-content">
+            <div id="product-details"></div>
+        </div>
+         {% endcomment %}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+       
+    
+        <script>
+            function loadAddProductForm() {
+                const middleContent = document.getElementById("middle-content");
+                middleContent.innerHTML = `
+                    <div class="form-container" id="product-form">
+                        <h2>Add Product</h2>
+                        <form action="{% url 'add_product' %}" method="post" enctype="multipart/form-data" onsubmit="return validateProductForm();">
+                            {% csrf_token %}
+                            
+                        
+                            {% comment %} <div class="form-group">
+                                <label for="product-id">Product ID</label>
+                                <input type="text" id="product-id" name="product-id" class="form-control" required>
+                            </div> {% endcomment %}
+                            <div class="form-group">
+                                <label for="product-name">Product Name</label>
+                                <input type="text" id="product-name" name="product-name" class="form-control" required oninput="validateProductName(this)">
+                                <span id="product-name-error" class="error-text"></span>
+                            </div>
+                             <div class="form-group">
+                            <label for="category-name">Category Name</label>
+                            <select id="category-name" name="category-name" class="form-control" required onchange="updateSubcategoryOptions()">
+                                <option value="gold">Select</option>
+                                <option value="gold">Gold</option>
+                                <option value="diamond">Diamond</option>
+                                <option value="platinum">Platinum</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="subcategory-name">Subcategory Name</label>
+                            <select id="subcategory-name" name="subcategory-name" class="form-control" required>
+                                <!-- Subcategory options will be added dynamically here -->
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="purity-of-gold">Purity of Gold</label>
+                            <select id="purity-of-gold" name="purity-of-gold" class="form-control" required>
+                                <option value="18k">18k</option>
+                                <option value="22k">22k</option>
+                                <option value="24k">24k</option>
+                            </select>
+                        </div>
+                        
+                            <div class="form-group">
+                                <label for="quantity">Quantity</label>
+                                <input type="number" id="quantity" name="quantity" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="description">Description</label>
+                                <textarea id="description" name="description" class="form-control" required></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="price">Product Price</label>
+                                <input type="number" id="price" name="price" class="form-control" required oninput="validatePrice(this); calculateSalePrice(document.getElementById('discount'))">
+                                <span id="price-error" class="error-text"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="discount">Discount (%)</label>
+                                <input type="number" id="discount" name="discount" class="form-control" oninput="calculateSalePrice(this)">
+                            </div>
+                            <div class="form-group">
+                                <label for="making-charge">Making Charge</label>
+                                <input type="number" id="making-charge" name="making-charge" class="form-control" oninput="calculateTotalPrice()">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="gold-value">Gold Value</label>
+                                <input type="number" id="gold-value" name="gold-value" class="form-control" oninput="calculateTotalPrice()">
+                            </div>
+                            <div class="form-group">
+                                <label for="gold-weight">Gold Weight (grams)</label>
+                                <input type="number" id="gold-weight" name="gold-weight" class="form-control" oninput="calculateTotalPrice(); calculatePurity()" required>
+                            </div>
+                            
+                           
+                            
+                            <div class="form-group">
+                                <label for="volume">Volume (cm^3)</label>
+                                <input type="number" id="volume" name="volume" class="form-control" oninput="calculatePurity()" required>
+                            </div>
+                            <div id="purity-result"></div> <!-- Inserted div here --><br>
+                            <div class="form-group">
+                                <label for="stone-cost">Stone Cost</label>
+                                <input type="number" id="stone-cost" name="stone-cost" class="form-control" oninput="calculateTotalPrice()">
+                            </div>
+                            <div class="form-group">
+                                <label for="gst-rate">GST Rate (%)</label>
+                                <input type="number" id="gst-rate" name="gst-rate" class="form-control" oninput="calculateTotalPrice()">
+                            </div>
+                            
+                            
+                            <div class="form-group">
+                                <label for="sale-price">Total Price</label>
+                                <input type="number" id="sale-price" name="sale-price" class="form-control" readonly>
+                            </div>
+                            <div class="form-group">
+                                <label for="status">Status</label>
+                                <select id="status" name="status" class="form-control" required>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="product-image">Product Image</label>
+                                <input type="file" id="product-image" name="product-image" class="form-control" accept="image/*" required onchange="validateProductImage(this)">
+                                <span id="product-image-error" class="error-text"></span>
+                            </div>
+                           
+                            
+                            <button type="submit" id="add-product-button" class="btn btn-primary">Add Product</button>
+                            <button type="reset" class="btn btn-primary">Reset</button>
+                        </form>
+                    </div>
+
+                    <div id="purity-result"></div>
+                `;
+            }
+          
+        </script>   
+           
+    <script>
+        function calculateTotalPrice() {
+            var price = parseFloat(document.getElementById('price').value) || 0;
+            var makingCharge = parseFloat(document.getElementById('making-charge').value) || 0;
+            var goldValue = parseFloat(document.getElementById('gold-value').value) || 0;
+            var stoneCost = parseFloat(document.getElementById('stone-cost').value) || 0;
+            var gstRate = parseFloat(document.getElementById('gst-rate').value) || 0;
+            var discount = parseFloat(document.getElementById('discount').value) || 0;
+            var goldWeight = parseFloat(document.getElementById('gold-weight').value) || 0;
+        
+            // Calculate discounted price
+            var discountedPrice = price - (price * (discount / 100));
+        
+            // Calculate sale price with gold_weight
+            var salePrice = discountedPrice + makingCharge + (goldValue * goldWeight) + stoneCost;
+        
+            // Calculate GST amount
+            var gstAmount = salePrice * (gstRate / 100);
+        
+            // Calculate sale price with GST
+            var salePriceWithGst = salePrice + gstAmount;
+        
+            // Display the calculated sale price
+            document.getElementById('sale-price').value = salePriceWithGst.toFixed(2);
+        }
+        
+        
+        var inputElements = document.querySelectorAll('#price, #making-charge, #gold-value, #stone-cost, #gst-rate, #discount, #gold-weight');
+        inputElements.forEach(function (element) {
+            element.addEventListener('input', calculateTotalPrice);
+        });
+        
+        // Calculate the initial sale price on page load
+        calculateTotalPrice();
+        
+        // Add any additional JavaScript validation or functionality if needed
+        function validateProductForm() {
+            // Your validation logic goes here
+            return true;  // Return false if the form should not be submitted
+        }
+    
+        // Attach the calculateTotalPrice function to input events for live updates
+        var inputElements = document.querySelectorAll('#price, #making-charge, #gold-value, #stone-cost, #gst-rate, #discount');
+        inputElements.forEach(function (element) {
+            element.addEventListener('input', calculateTotalPrice);
+        });
+    
+        // Calculate the initial sale price on page load
+        calculateTotalPrice();
+        
+        function validateProductName(input) {
+            const productNameError = document.getElementById("product-name-error");
+            const productNameRegex = /^[A-Za-z ]+$/;
+            if (!productNameRegex.test(input.value)) {
+                productNameError.textContent = "Product name should contain only alphabet characters.";
+            } else {
+                productNameError.textContent = "";
+            }
+        }
+        
+        function validatePrice(input) {
+            const priceError = document.getElementById("price-error");
+            const priceValue = parseFloat(input.value);
+            if (isNaN(priceValue) || priceValue <= 100) {
+                priceError.textContent = "Price should be greater than 100.";
+            } else {
+                priceError.textContent = "";
+            }
+        
+            // Trigger recalculation when price changes
+            calculateTotalPrice();
+        }
+        
+        function validateProductForm() {
+            const productNameError = document.getElementById("product-name-error").textContent;
+            const priceError = document.getElementById("price-error").textContent;
+        
+            if (productNameError || priceError) {
+                return false;
+            }
+        
+            return true;
+        }
+        
+        function calculateSalePrice(discountInput) {
+            const priceInput = document.getElementById("price");
+            const salePriceInput = document.getElementById("sale-price");
+            const gstRateInput = document.getElementById("gst-rate");
+        
+            const price = parseFloat(priceInput.value) || 0;
+            const discount = parseFloat(discountInput.value) || 0;
+            const gstRate = parseFloat(gstRateInput.value) || 0;
+        
+            // Calculate sale price without GST
+            const salePriceWithoutGST = price - (price * (discount / 100));
+        
+            // Calculate GST amount
+            const gstAmount = (salePriceWithoutGST * gstRate) / 100;
+        
+            // Calculate sale price with GST
+            const salePriceWithGST = salePriceWithoutGST + gstAmount;
+        
+            if (!isNaN(salePriceWithGST)) {
+                salePriceInput.value = salePriceWithGST.toFixed(2);
+            } else {
+                salePriceInput.value = "";
+            }
+        
+            // Trigger recalculation of total price
+            calculateTotalPrice();
+        }
+        
+    
+            function updateSubcategoryOptions() {
+                const categorySelect = document.getElementById("category-name");
+                const subcategorySelect = document.getElementById("subcategory-name");
+                const selectedCategory = categorySelect.value;
+                subcategorySelect.innerHTML = ""; // Clear previous options
+            
+                if (selectedCategory === "gold") {
+                    addSubcategoryOption(subcategorySelect, "earrings", "Earrings");
+                    addSubcategoryOption(subcategorySelect, "bangles", "Bangles");
+                    addSubcategoryOption(subcategorySelect, "rings", "Rings");
+                    addSubcategoryOption(subcategorySelect, "necklaces", "Necklaces");
+                    addSubcategoryOption(subcategorySelect, "bracelets", "Bracelets");
+                } else if (selectedCategory === "diamond") {
+                    // Add diamond subcategory options here
+                    addSubcategoryOption(subcategorySelect, "necklaces", "Necklaces");
+                    addSubcategoryOption(subcategorySelect, "bracelets", "Bracelets");
+                    addSubcategoryOption(subcategorySelect, "rings", "Rings");
+                    addSubcategoryOption(subcategorySelect, "earrings", "Earrings");
+                } else if (selectedCategory === "platinum") {
+                    // Add platinum subcategory options here
+                    addSubcategoryOption(subcategorySelect, "chains", "Chains");
+                    addSubcategoryOption(subcategorySelect, "pendants", "Pendants");
+                    addSubcategoryOption(subcategorySelect, "rings", "Rings");
+                } else {
+                    // Handle the "Select" option or other categories
+                }
+            }
+            
+            function addSubcategoryOption(selectElement, value, text) {
+                const option = document.createElement("option");
+                option.value = value;
+                option.text = text;
+                selectElement.appendChild(option); // Fix the typo here
+            }
+            
+            function populateGoldPurityOptions() {
+                const puritySelect = document.getElementById("purity-of-gold");
+            
+                // Clear existing options
+                puritySelect.innerHTML = "";
+            
+                // Create and append new options
+                const goldPurityOptions = ["18k", "22k", "24k"];
+                goldPurityOptions.forEach(optionValue => {
+                    const option = document.createElement("option");
+                    option.value = optionValue;
+                    option.text = optionValue;
+                    puritySelect.appendChild(option);
+                });
+            }
+            
+            // Call the function to populate the options when the page loads
+            populateGoldPurityOptions();
+
+
+            function calculatePurity() {
+                const goldWeight = parseFloat(document.getElementById('gold-weight').value) || 0;
+                const volume = parseFloat(document.getElementById('volume').value) || 1.0; // Default to 1.0 if volume is not provided
+                const knownDensity = 19.32; // Known density of pure gold (in g/cm^3)
+                const density = goldWeight / volume;
+                const estimatedPurity = (density / knownDensity) * 100;
+            
+                // Display the calculated purity
+                document.getElementById('purity-result').innerText = `Estimated Purity: ${estimatedPurity.toFixed(2)}%`;
+            }
+            
+            
+        </script>
+    </body>
+    
+    
+    </html>
+    

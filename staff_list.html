@@ -1,0 +1,334 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Staff List - Thangam Jewels</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="Staff List - Thangam Jewels" name="keywords">
+    <meta content="Staff List - Thangam Jewels" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'lib/slick/slick.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/slick/slick-theme.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style>
+        /* Add this style for the Logout button container */
+        .logout-button-container {
+            position: absolute;
+            top: 0; /* Align it to the top of the header */
+            right: 20px; /* Align it to the right side of the header with 20px spacing */
+            color: #ccc;
+        }
+
+        .logout-button-container a {
+            color: #666; /* Button text color */
+            text-decoration: none;
+            padding: 8px 16px; /* Adjust the padding for button size */
+            border-radius: 4px;
+        }
+
+        /* Header and Navbar Styles */
+        .header_section {
+            background-color: #333; /* Update with your desired background color */
+            color: #fff;
+            padding: 10px;
+        }
+
+        .custom_nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-toggler {
+            display: none; /* Hide the default navbar toggler */
+        }
+
+        .navbar-nav {
+            list-style: none;
+            padding: 0;
+            display: flex;
+        }
+
+        .nav-item {
+            margin-right: 10px;
+        }
+
+        .nav-link {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .nav-link:hover {
+            color: #007bff;
+        }
+
+        .nav_search-btn {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .nav_search-btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 20%;
+            background-color: #f0f0f0;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+
+        /* Global styles */
+        body {
+            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar-item a {
+            color: #F36754;
+        }
+
+        /* Navbar styles */
+        .navbar {
+            background-color: #000;
+            color: #fff;
+            padding: 10px;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 20%;
+            background-color: #f0f0f0;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .sidebar-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar-item:hover {
+            background-color: #ddd;
+        }
+
+        .account-settings {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .account-box {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        /* Additional styles for content on the right side */
+        .content {
+            margin-left: 20%;
+            padding: 20px;
+        }
+
+        /* Style for the table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #fff; /* White background for the table */
+            margin-left: -20px; /* Offset to account for the increased margin in .content */
+        }
+
+        table, th, td {
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        /* Style for the checkboxes and labels */
+        .custom-checkbox {
+            display: none;
+        }
+
+        .custom-checkbox + label {
+            cursor: pointer;
+            padding-left: 25px;
+        }
+
+        .custom-checkbox + label:before {
+            content: "";
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            margin-right: 10px;
+            border: 1px solid #ccc;
+            background-color: #fff;
+            border-radius: 3px;
+        }
+
+        .custom-checkbox:checked + label:before {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+
+        /* Style for the "Update" button */
+        button[type="submit"] {
+            background-color: #e13711;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 3px;
+            transition: background-color 0.3s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #5ee739;
+        }
+
+        /* Checkbox styles */
+        .inactive-checkbox:checked + label:before {
+            background-color: red; /* Change the color when checked */
+            border-color: red;
+        }
+
+        .active-checkbox:checked + label:before {
+            background-color: green; /* Change the color when checked */
+            border-color: green;
+        }
+
+        .account-box a {
+            color: #F36754;
+        }
+    </style>
+</head>
+<body>
+<div class="nav">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <a href="#" class="navbar-brand"></a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <h4>Staff List</h4>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav ml-auto">
+                    <a href="" class="nav-item nav-link" style="color: white;"></a>
+                    <div class="logout-button-container">
+                        <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+
+<div class="sidebar">
+    <div class="sidebar-item">
+        {% comment %} ORDERS {% endcomment %}
+        <div class="account-box">
+            <a href="{% url 'feedback_list' %}" class="content-item">FEEDBACK</a>
+        </div>
+    </div>
+    <div class="sidebar-item">
+        {% comment %} ORDERS {% endcomment %}
+        <div class="account-box">
+            <a href="{% url 'calculate_purity' %}" class="content-item">PURITY OF GOLD </a>
+        </div>
+
+    </div>
+    <div class="sidebar-item">
+        PRODUCT
+        <div class="account-box">
+            <div class="content-item" onclick="loadAddProductForm()">ADD PRODUCT</div>
+        </div>
+        <div class="account-box">
+            <a class="content-item" href="{% url 'viewproduct' %}">VIEW PRODUCT</a>
+        </div>
+    </div>
+    <div class="sidebar-item">USERS LISTING</div>
+    <div class="account-box">
+        <a class="content-item" href="{% url 'staff_list' %}">STAFF</a>
+    </div>
+    <div class="account-box">
+        <a class="content-item" href="{% url 'customer_list' %}">CUSTOMERS</a>
+    </div>
+</div>
+
+<!-- Middle Content -->
+<div class="content" id="middle-content">
+    <table>
+        <thead>
+            <tr>
+                <th>Staff Name</th>
+                <th>Email</th>
+                <th>Status & Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for staff_member in staff_members %}
+                <tr>
+                    <td>{{ staff_member.username }}</td>
+                    <td>{{ staff_member.email }}</td>
+                    <td>
+                        <form method="post" action="{% url 'change_staff_status' staff_member.id %}">
+                            {% csrf_token %}
+                            <input type="hidden" name="status" value="{% if staff_member.is_active %}inactive{% else %}active{% endif %}">
+                            <button type="submit" class="btn btn-sm {% if staff_member.is_active %}btn-danger{% else %}btn-success{% endif %}">
+                                {% if staff_member.is_active %}Deactivate{% else %}Activate{% endif %}
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- JavaScript to load the form for adding a product -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script>
+    function loadAddProductForm() {
+        const middleContent = document.getElementById("middle-content");
+        middleContent.innerHTML = `
+            <div class="form-container" id="product-form">
+                <!-- Add your staff list related content here -->
+            </div>
+        `;
+    }
+</script>
+</body>
+</html>

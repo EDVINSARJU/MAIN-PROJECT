@@ -1,0 +1,494 @@
+
+      {% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>WELCOME TO THANGAM JEWELS </title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="eCommerce HTML Template Free Download" name="keywords">
+        <meta content="eCommerce HTML Template Free Download" name="description">
+
+        <!-- Favicon -->
+        <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+        <!-- Google Fonts -->
+        <link href="{% static 'https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap' %}" rel="stylesheet">
+
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="{% static 'lib/slick/slick.css' %}" rel="stylesheet">
+        <link href="{% static 'lib/slick/slick-theme.css' %}" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    </head>
+<style>
+    
+    .footer {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    /* Style for the category filter */
+    #category-filter {
+        padding: 8px;
+        font-size: 16px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 10px;
+    }
+
+    /* Style the arrow icon in the select */
+    #category-filter::-ms-expand {
+        display: none;
+    }
+
+    #category-filter::after {
+        content: '\25BC';
+        /* Unicode character for a downward arrow */
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+    }
+
+    /* Style the options in the dropdown */
+    #category-filter option {
+        padding: 8px;
+        font-size: 16px;
+    }
+
+    /* General Styles */
+    body {
+        font-family: 'Open Sans', sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    /* Top Bar Styles */
+    .top-bar {
+        color: white;
+    }
+
+    .product-item {
+        position: relative;
+        width: 100%;
+        max-width: 350px;
+        padding: 15px;
+        text-align: center;
+        background: #ffffff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 5px;
+        margin-bottom: 30px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+        margin-right: 0; /* Remove right margin */
+        margin-left: 0; /* Remove left margin */
+    }
+    
+    
+    
+    .product-title a {
+        color: #000; /* Set the text color to black */
+        text-decoration: none;
+        font-size: 18px;
+        transition: color 0.3s ease;
+        display: block;
+    }
+    
+    .product-title a:hover {
+        color: #fe2712; /* Change text color on hover */
+    }
+    
+    .product-price h5 {
+        color: #000; /* Set the text color to black */
+    }
+    
+    
+    
+    .buy-now-button,
+    .view-details-button {
+        background-color: #FF6F61; /* Background color */
+        color: #ffffff; /* Text color */
+        padding: 10px 20px; /* Adjust padding as needed */
+        border: 2px solid #FF6F61; /* Border color */
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease; /* Add smooth transitions */
+    }
+    
+    .buy-now-button:hover,
+    .view-details-button:hover {
+        background-color: #FF6F61; /* Change background color on hover */
+        color: #ffffff; /* Change text color on hover */
+    }
+    .product-price h5 {
+        color: #ffffff; /* Set the text color to white */
+        /* Add any additional styling if needed */
+    }
+    
+    .product-price .btn {
+        margin-top: 10px; /* Add top margin to create space between buttons */
+    }
+    /* Container styles for the buttons */
+    .product-details-button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    /* Style for the "BUY NOW" button */
+    .buy-now-button {
+        background-color: #FF6F61; /* Background color */
+        color: #ffffff; /* Text color */
+        padding: 10px 20px; /* Adjust padding as needed */
+        border: 2px solid #FF6F61; /* Border color */
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease; /* Add smooth transitions */
+    }
+    
+    /* Style for the "VIEW DETAILS" button */
+    .view-details-button {
+        background-color: #ffffff; /* Background color */
+        color: #FF6F61; /* Text color */
+        padding: 10px 20px; /* Adjust padding as needed */
+        border: 2px solid #FF6F61; /* Border color */
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease; /* Add smooth transitions */
+    }
+    
+    /* Hover styles for both buttons */
+    .buy-now-button:hover,
+    .view-details-button:hover {
+        background-color: #FF6F61; /* Change background color on hover */
+        color: #ffffff; /* Change text color on hover */
+    }
+    
+    .product-item img {
+        object-fit: cover;
+        max-width: 100%;
+        height: 250px;
+        transition: transform 0.3s ease;
+        margin-bottom: 20px;
+        overflow: hidden;
+        position: relative;
+    }
+    
+    .product-details-button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+        margin-bottom: 0; /* Remove bottom margin */
+    }
+    
+    /* Container styles for the buttons */
+    .product-details-button {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    /* Style for the "BUY NOW" button */
+    .buy-now-button,
+    .view-details-button {
+        background-color: #FF6F61;
+        color: #ffffff;
+        padding: 10px 20px;
+        border: 2px solid #FF6F61;
+        border-radius: 5px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+    }
+    
+    /* Hover styles for both buttons */
+    .buy-now-button:hover,
+    .view-details-button:hover {
+        background-color: #FF6F61;
+        color: #ffffff;
+    }
+    .image-zoom {
+        display: block;
+        width: 100%;
+        height: auto;
+        transition: transform 0.3s ease;
+      }
+    
+      .image-zoom:hover {
+        transform: scale(1.2);
+      }
+      .header {
+       
+        text-align: center; /* Center the text within the header */
+        padding: 20px; /* Add padding to the header */
+      
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 24px; /* Adjust the font size as needed */
+    }
+    
+    
+</style>
+    <body>      
+      
+        <div class="nav">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                    <a href="#" class="navbar-brand"></a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>        
+
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav ml-auto"> 
+                            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                                <div class="navbar-nav ml-auto">
+                                   <!-- Add this block to display the username if the user is authenticated -->
+                    {% if user.is_authenticated %}
+                      <a href="" class="nav-item nav-link" style="color: white;">{{ user.username }}</a>
+                      <a href="{% url 'logout' %}" class="nav-item nav-link" style="color: white;">Logout</a>
+                    {% else %}
+                    <a href="{% url 'login' %}" class="nav-item nav-link" style="color: white;">Login</a>
+                    {% endif %}
+
+                            <a href="{% url 'contact' %}" class="nav-item nav-link active">Contact Us</a>
+                            <a href="{% url "view_cart" product_id=2 %}" class="nav-item nav-link active">Cart</a>   
+                                                               
+                            <div class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User account</a>
+                                <div class="dropdown-menu">
+                                <a href="{% url "register" %}" class="nav-item nav-link">REGISTER</a>                        
+                                </div>
+                            </div>
+                        </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        
+      <div class="bottom-bar">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-3">
+                    <div class="user">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <select id="category-filter">
+                                    <option value="" selected>All Categories</option>
+                                    <option value="gold">Gold</option>
+                                    <option value="diamond">Diamond</option>
+                                    <option value="platinum">Platinum</option>
+                                    <!-- Add other categories as needed -->
+                                </select>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                <div class="header">
+                    <h1>Thangam Jewellery</h1>
+                </div>
+                {% comment %} <div class="col-md-6">
+                    <div class="search">
+                        <input type="text" id="searchInput" placeholder="Search">
+                        <button id="searchButton"><i class="fa fa-search"></i></button>
+                    </div>
+                </div> {% endcomment %}
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <div class="featured-product product">
+        <div class="container-fluid">
+            <div class="section-header">
+                <h1>Products</h1>
+            </div>
+    
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-lg-4 col-md-6 mb-4">
+                        <div class="product-item" data-category="{{ product.category }}" data-search="{{ product.product_name }}">
+                            <div class="product-title">
+                                <a href="{% url 'product_details' product_id=product.product_id %}">{{ product.product_name }}</a>
+                            </div>
+                            <div class="product-image">
+                                <a href="{% url 'product_details' product_id=product.product_id %}" >
+                                    <img src="{{ product.product_image.url }}"   class="image-zoom" alt="{{ product.product_name }}">
+                                </a>
+                            </div>
+                            <div class="product-price">
+                                <h5>₹{{ product.price }}</h5>
+                                <div class="product-details-button">
+                                    <a href="{% url 'product_details' product_id=product.product_id %}" class="btn view-details-button">VIEW DETAILS</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    
+      <br>
+      <br>
+      <script>
+        function arrangeProductsInRows() {
+            var productContainer = document.getElementById('productGrid');
+            var productItems = Array.from(productContainer.getElementsByClassName('product-item'));
+        
+            // Clear the container before appending sorted items
+            productContainer.innerHTML = '';
+        
+            // Append the sorted items back to the container in rows
+            var currentRow;
+            productItems.forEach(function (item, index) {
+                // Every three items, start a new row
+                if (index % 3 === 0) {
+                    currentRow = document.createElement('div');
+                    currentRow.className = 'row';
+                    productContainer.appendChild(currentRow);
+                }
+        
+                // Create a column for each item
+                var col = document.createElement('div');
+                col.className = 'col-md-4'; // Adjust the column size as needed
+                col.appendChild(item.cloneNode(true));
+                currentRow.appendChild(col);
+            });
+        }
+        
+        document.getElementById('category-filter').addEventListener('change', function () {
+            var selectedCategory = this.value.toLowerCase();
+            var productContainer = document.getElementById('productGrid');
+            var productItems = Array.from(document.querySelectorAll('.product-item'));
+        
+            // Show or hide product items based on the selected category
+            productItems.forEach(function (item) {
+                var itemCategory = item.getAttribute('data-category').toLowerCase();
+                if (selectedCategory === '' || selectedCategory === itemCategory) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        
+            // Arrange the displayed products in rows
+            arrangeProductsInRows();
+        });
+        
+        // Initial filtering based on the selected category (if any)
+        var initialCategory = document.getElementById('category-filter').value.toLowerCase();
+        if (initialCategory !== '') {
+            filterProducts(initialCategory); // Assuming this function filters products based on category
+            arrangeProductsInRows();
+        }
+        
+        
+        
+    </script>
+    
+    
+      
+          <div class="footer">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Get in Touch</h2>
+                            <div class="contact-info">
+                                <p><i class="fa fa-map-marker"></i>vellore,Tamil nadu,india</p>
+                                <p><i class="fa fa-envelope"></i>edvinsarju@gmail.com</p>
+                                <p><i class="fa fa-phone"></i>8923567845</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Follow Us</h2>
+                            <div class="contact-info">
+                                <div class="social">                                
+                                    <a href=""><i class="fab fa-facebook-f"></i></a>
+                                    <a href=""><i class="fab fa-linkedin-in"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Company Info</h2>
+                            <ul>
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Privacy Policy</a></li>
+                                <li><a href="#">Terms & Condition</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-widget">
+                            <h2>Purchase Info</h2>
+                            <ul>
+                                <li><a href="#">Pyament Policy</a></li>
+                                <li><a href="#">Shipping Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row payment align-items-center">
+                    <div class="col-md-6">
+                        <div class="payment-method">
+                            <h2>We Accept:</h2>
+                            <img src="{% static 'img/payment-method.png' %}" alt="Payment Method" />
+                        </div>
+                    </div>                  
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Footer End -->
+        
+        <!-- Footer Bottom Start -->
+        <div class="footer-bottom">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 copyright">
+                        <p>Copyright &copy; <a href="#">THANGAM JEWELLERY</a>. All Rights Reserved</p>
+                    </div>
+
+                    <div class="col-md-6 template-by">
+                    </div>
+                </div>
+            </div>
+        </div>
+<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+        
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/slick/slick.min.js' %}"></script>
+
+<!-- Template Javascript -->
+<script src="{% static 'js/main.js' %}"></script>
+
+
+
+   </body>
+</html> 
+    

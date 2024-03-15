@@ -1,0 +1,94 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+    <style>
+        /* Your CSS styles here */
+    </style>
+</head>
+<body>
+    <h1>USER DETAILS</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Pincode</th>
+                <th>Address</th>
+                <th>Ordered Products</th> <!-- New column for ordered products -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <td>{{ customer.username }}</td>
+                <td>{{ customer.email }}</td>
+                <td>{{ customer.phone_number }}</td>
+                <td>{{ customer.pincode }}</td>
+                <td>{{ customer.address }}</td>
+                <td>
+                    <ul>
+                        {% for order in customer.orders.all %}
+                        <li>{{ order.product.name }}</li> <!-- Assuming 'orders' is the related name for orders in the User model, and 'product' is the related name for products in the Order model -->
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h1>Paid Orders</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Product Name</th>
+                <th>Amount Paid</th>
+                <th>Payment Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in paid_orders %}
+            <tr>
+                <td>{{ order.id }}</td> <!-- Assuming order ID is stored in 'id' field -->
+                <td>{{ order.product.name }}</td> <!-- Assuming 'product' is the related name for products in the Order model -->
+                <td>{{ order.amount_paid }}</td> <!-- Assuming the amount paid is stored in 'amount_paid' field -->
+                <td>Paid</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Payment Confirmation</title>
+    </head>
+    <body>
+        <h1>Payment Confirmation</h1>
+        <p>Username: {{ username }}</p>
+        <h2>Ordered Products:</h2>
+        <ul>
+            {% for ordered_product in ordered_products %}
+                <li>
+                    <h3>{{ ordered_product.product.name }}</h3>
+                    <p>Price: ₹{{ ordered_product.total_price }}</p>
+                    <!-- Add any other product details you want to display -->
+                </li>
+            {% endfor %}
+        </ul>
+        <!-- You can add payment-related content here -->
+    </body>
+    </html>
+    
+    
+</body>
+</html>

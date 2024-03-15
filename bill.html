@@ -1,0 +1,23 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BILL</title>
+</head>
+<body>
+    <h1>BILL</h1>
+    <div>
+        <h2>{{ product.product_name }}</h2>
+        <p>Purity of Gold: {{ product.purity_of_gold }}</p>
+        <img src="{{ product.product_image.url }}" alt="Product Image">
+        <p>Price: ₹{{ product.price }}</p>
+        <p>Discount: ₹{{ product.discount }}</p>
+        <p>Making Charge: ₹{{ product.making_charge }}</p>
+        <p>GST Rate: {{ product.gst_rate }}%</p>
+        <p>Sale Price: ₹{{ product.sale_price }}</p>
+        <p>Gold Weight: {{ product.gold_weight }} grams</p>
+    </div>
+</body>
+</html>

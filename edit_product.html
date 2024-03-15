@@ -1,0 +1,244 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Edit Product - THANGAM JEWELS</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="eCommerce HTML Template Free Download" name="keywords">
+    <meta content="eCommerce HTML Template Free Download" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'lib/slick/slick.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/slick/slick-theme.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <style>
+        /* Add this style for the Logout button container */
+        .logout-button-container {
+            position: absolute;
+            top: 0; /* Align it to the top of the header */
+            right: 20px; /* Align it to the right side of the header with 20px spacing */
+            color: #ccc;
+        }
+        
+        /* Style for the Logout button */
+        .logout-button-container a {
+            color: #666; /* Button text color */
+            text-decoration: none;
+            padding: 8px 16px; /* Adjust the padding for button size */
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<div class="nav">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <a href="#" class="navbar-brand"></a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>        
+            <h4>Edit Product</h4>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav ml-auto"> 
+                    <a href="" class="nav-item nav-link" style="color: white;"></a>
+                    <body class="sub_page">
+                        <div class="hero_area">
+                            <header class="header_section">
+                                <!-- Your header content goes here -->
+                                <div class="logout-button-container">
+                                    <a href="{% url 'logout' %}" class="btn btn-primary">Logout</a>
+                                </div> 
+                                </div>
+                    </div>
+                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
+<br>
+    
+    <section class="inner_page_head">
+
+        <div class="container_fuild">
+            
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="full">
+                        {% comment %} <h4 class="left-corner-heading">View product</h4> {% endcomment %}
+                        
+                    </div>
+                    <form class="form-inline" style="float: right;">
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="form-container" id="product-form">
+      <form action="{% if product.product_id %}{% url 'edit_product' product_id=product.product_id %}{% else %}{% url 'add_product' %}{% endif %}" method="post" enctype="multipart/form-data" onsubmit="return validateProductForm();">
+          {% csrf_token %}
+          <div class="form-group">
+              <label for="product-name">Product Name</label>
+              <input type="text" id="product-name" name="product-name" class="form-control" value="{{ product.product_name }}" required>
+          </div>
+  
+          <div class="form-group">
+              <label for="category-name">Category Name</label>
+              <select id="category-name" name="category-name" class="form-control" required>
+                  <!-- Add options dynamically based on your categories -->
+                  <option value="gold" {% if product.category == 'gold' %}selected{% endif %}>Gold</option>
+                  <option value="diamond" {% if product.category == 'diamond' %}selected{% endif %}>Diamond</option>
+                  <option value="platinum" {% if product.category == 'platinum' %}selected{% endif %}>Platinum</option>
+              </select>
+          </div>
+  
+          <div class="form-group">
+              <label for="subcategory-name">Subcategory Name</label>
+              <select id="subcategory-name" name="subcategory-name" class="form-control" required>
+                  <!-- Add options dynamically based on the selected category -->
+                  <!-- You can use JavaScript to update subcategories based on the selected category -->
+                  <option value="{{ product.subcategory }}" selected>{{ product.subcategory }}</option>
+              </select>
+          </div>
+  
+          <div class="form-group">
+              <label for="purity-of-gold">Purity of Gold</label>
+              <select id="purity-of-gold" name="purity-of-gold" class="form-control" required>
+                  <option value="18k" {% if product.purity_of_gold == '18k' %}selected{% endif %}>18k</option>
+                  <option value="22k" {% if product.purity_of_gold == '22k' %}selected{% endif %}>22k</option>
+                  <option value="24k" {% if product.purity_of_gold == '24k' %}selected{% endif %}>24k</option>
+              </select>
+          </div>
+  
+          <div class="form-group">
+              <label for="quantity">Quantity</label>
+              <input type="number" id="quantity" name="quantity" class="form-control" value="{{ product.quantity }}" required>
+          </div>
+  
+          <div class="form-group">
+              <label for="description">Description</label>
+              <textarea id="description" name="description" class="form-control" required>{{ product.description }}</textarea>
+          </div>
+  
+          <div class="form-group">
+              <label for="price">Product Price</label>
+              <input type="number" id="price" name="price" class="form-control" value="{{ product.price }}" required>
+          </div>
+  
+          <div class="form-group">
+              <label for="discount">Discount (%)</label>
+              <input type="number" id="discount" name="discount" class="form-control" value="{{ product.discount }}">
+          </div>
+  
+          <div class="form-group">
+              <label for="making-charge">Making Charge</label>
+              <input type="number" id="making-charge" name="making-charge" class="form-control" value="{{ product.making_charge }}" oninput="calculateTotalPrice()">
+          </div>
+  
+          <div class="form-group">
+              <label for="gold-value">Gold Value</label>
+              <input type="number" id="gold-value" name="gold-value" class="form-control" value="{{ product.gold_value }}" oninput="calculateTotalPrice()">
+          </div>
+          <div class="form-group">
+              <label for="gold-weight">Gold Weight (grams)</label>
+              <input type="number" id="gold-weight" name="gold-weight" class="form-control" value="{{ product.gold_weight }}" oninput="calculateTotalPrice()">
+          </div>
+          <div class="form-group">
+              <label for="stone-cost">Stone Cost</label>
+              <input type="number" id="stone-cost" name="stone-cost" class="form-control" value="{{ product.stone_cost }}" oninput="calculateTotalPrice()">
+          </div>
+  
+          <div class="form-group">
+              <label for="gst-rate">GST Rate (%)</label>
+              <input type="number" id="gst-rate" name="gst-rate" class="form-control" value="{{ product.gst_rate }}" oninput="calculateTotalPrice()">
+          </div>
+  
+          <div class="form-group">
+              <label for="sale-price">Total Price</label>
+              <input type="number" id="sale-price" name="sale-price" class="form-control" value="{{ product.sale_price }}" readonly>
+          </div>
+  
+          <div class="form-group">
+              <label for="status">Status</label>
+              <select id="status" name="status" class="form-control" required>
+                  <option value="active" {% if product.status == 'active' %}selected{% endif %}>Active</option>
+                  <option value="inactive" {% if product.status == 'inactive' %}selected{% endif %}>Inactive</option>
+              </select>
+          </div>
+  
+          <div class="form-group">
+              <label for="product-image">Product Image</label>
+              <input type="file" id="product-image" name="product-image" class="form-control" accept="image/*">
+          </div>
+  
+          <button type="submit" class="btn btn-primary">Update Product</button>
+          <a href="{% url "viewproduct" %}" class="btn btn-primary">Cancel</a>
+      </form>
+      <div id="purity-result"></div>
+  </div>
+  
+      <script>
+        
+        function calculateTotalPrice() {
+          var price = parseFloat(document.getElementById('price').value) || 0;
+          var makingCharge = parseFloat(document.getElementById('making-charge').value) || 0;
+          var goldValue = parseFloat(document.getElementById('gold-value').value) || 0;
+          var goldWeight = parseFloat(document.getElementById('gold-weight').value) || 0;
+          var volume = parseFloat(document.getElementById('volume').value) || 1.0; // Default to 1.0 if not provided
+          var stoneCost = parseFloat(document.getElementById('stone-cost').value) || 0;
+          var gstRate = parseFloat(document.getElementById('gst-rate').value) || 0;
+          var discount = parseFloat(document.getElementById('discount').value) || 0;
+  
+          var discountedPrice = price - (price * (discount / 100));
+  
+          var salePrice = discountedPrice + makingCharge + (goldValue * goldWeight) + stoneCost;
+  
+          var gstAmount = salePrice * (gstRate / 100);
+  
+      
+          var salePriceWithGst = salePrice + gstAmount;
+  
+          
+          document.getElementById('sale-price').value = salePriceWithGst.toFixed(2);
+      }
+  
+    
+      var inputElements = document.querySelectorAll('#price, #making-charge, #gold-value, #gold-weight, #volume, #stone-cost, #gst-rate, #discount');
+      inputElements.forEach(function (element) {
+          element.addEventListener('input', calculateTotalPrice);
+      });
+  
+      
+      calculateTotalPrice();
+
+
+        function validateProductForm() {
+           
+            return true; 
+        }
+    
+       
+        var inputElements = document.querySelectorAll('#price, #making-charge, #gold-value, #stone-cost, #gst-rate, #discount');
+        inputElements.forEach(function (element) {
+            element.addEventListener('input', calculateTotalPrice);
+        });
+    
+        
+        calculateTotalPrice();
+    </script>
+    
+    

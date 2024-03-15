@@ -1,0 +1,321 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>WELCOME TO THANGAM JEWELS </title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="eCommerce HTML Template Free Download" name="keywords">
+        <meta content="eCommerce HTML Template Free Download" name="description">
+
+        <!-- Favicon -->
+        <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+        <!-- Google Fonts -->
+        <link href="{% static 'https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap' %}" rel="stylesheet">
+
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="{% static 'lib/slick/slick.css' %}" rel="stylesheet">
+        <link href="{% static 'lib/slick/slick-theme.css' %}" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    </head>
+
+    <body>      
+        <!-- Nav Bar Start -->
+                    <div class="nav">
+                        <div class="container-fluid">
+                            <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                                <a href="#" class="navbar-brand"></a>
+                                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                                    <span class="navbar-toggler-icon"></span>
+                                </button>        
+
+                                <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                                    <div class="navbar-nav ml-auto"> 
+                                        <a href="" class="nav-item nav-link" style="color: white;">{{ user.username }}</a>
+                                       
+                                        <a href="{% url 'contact' %}" class="nav-item nav-link active">Contact Us</a>
+                                                                           
+                                       
+                                        </div>
+                                    </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+    <style>
+        /* Style for the form container */
+        .form-container {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 20px;
+            width: 80%;
+            margin: 0 auto;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Style for form labels */
+        .form-group label {
+            font-weight: bold;
+        }
+
+        /* Style for form inputs */
+        .form-control {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+        }
+
+        /* Style for form buttons */
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .hero_area {
+            /* Your hero area styles go here */
+        }
+
+        .header_section {
+            /* Your header styles go here */
+        }
+
+        .custom_nav-container {
+            /* Your navigation styles go here */
+        }
+
+        .navbar-toggler {
+            /* Your navbar toggler styles go here */
+        }
+
+        .navbar-nav {
+            /* Your navbar-nav styles go here */
+        }
+
+        .nav-link {
+            /* Your nav-link styles go here */
+        }
+
+        .nav_search-btn {
+            /* Your search button styles go here */
+        }
+
+        .inner_page_head {
+            /* Your inner page head styles go here */
+        }
+
+        /* Add your sidebar styles here */
+        .sidebar {
+            width: 20%;
+            background-color: #f0f0f0;
+            padding: 20px;
+            position: fixed;
+            height: 100%;
+            overflow: auto;
+        }
+
+        .sidebar-item {
+            margin-bottom: 20px;
+            padding: 10px;
+            background-color: #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .sidebar-item:hover {
+            background-color: #ddd;
+        }
+
+        .account-settings {
+            background-color: #f9f9f9;
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+
+        .account-box {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        /* Additional styles for content on the right side */
+        .content {
+            margin-left: 20%;
+            padding: 20px;
+        }
+    </style>
+</head>
+
+<body class="sub_page">
+    <div class="hero_area">
+        <header class="header_section">
+            <!-- Your header content goes here -->
+        </header>
+    </div>
+    <section class="inner_page_head">
+        <div class="container_fuild">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="full">
+                        <h3></h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="sidebar">
+        <div class="sidebar-item">MY ORDERS</div>
+        <div class="sidebar-item">
+            ACCOUNT SETTINGS
+            <div class="account-box">
+                <div class="content-item" onclick="loadProfileForm()">Profile Information</div>
+            </div>
+            <div class="account-box">
+                <div class="content-item" onclick="loadManageAddressesForm()">Manage Address</div>
+            </div>
+        </div>
+        <div class="sidebar-item">PAYMENT</div>
+    </div>
+
+    <!-- Middle Content -->
+    <div class="content" id="middle-content">
+        <!-- Content will be loaded here dynamically using JavaScript -->
+    </div>
+
+    <!-- JavaScript to load the form and initialize the date picker -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    
+    <script>
+        function loadProfileForm() {
+            // You can load your form content here
+            const middleContent = document.getElementById("middle-content");
+            middleContent.innerHTML = `
+                <div class="form-container">
+                    <h2>Profile Information Form</h2>
+                    <form method="post" enctype="multipart/form-data" onsubmit="return validateProfileForm();">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="username">User Name</label>
+                            <input type="text" id="usertname" name="username" class="form-control" value="{{ user.username }}" required>
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" value="{{ user.email }}" required>
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" value="{{ user_profile.phone_number }}" required>
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="id_address">Address</label>
+                            <input type="text" name="address" id="id_address" class="form-control" value="{{ user_profile.address }}" required>
+                        </div>
+                
+                        <button type="submit" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            `;
+        }
+    
+        function loadManageAddressesForm() {
+            const middleContent = document.getElementById("middle-content");
+            middleContent.innerHTML = `
+                <div class="form-container" id="address-form">
+                    <h2>Manage Addresses</h2>
+                    <form onsubmit="return validateAddressForm();">
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" class="form-control" value="{{ user.email }}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" class="form-control" value="{{ user_profile.phone_number }}" required>
+                        </div>
+                
+                        <div class="form-group">
+                            <label for="pincode">PIN Code</label>
+                            <input type="text" id="pincode" name="pincode" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" class="form-control" required>
+                        </div>
+                        <!-- Add other fields as needed -->
+                        <button type="update" class="btn btn-primary">Update</button>
+                    </form>
+                </div>
+            `;
+        }
+    
+        function validateFullName() {
+            // Your existing validation logic
+        }
+    
+        function validatePhoneNumber() {
+            // Your existing validation logic
+        }
+    
+        function validateProfileForm() {
+            const isFullNameValid = validateFullName();
+            const isPhoneNumberValid = validatePhoneNumber();
+    
+            if (isFullNameValid && isPhoneNumberValid) {
+                // Form is valid, you can submit it or perform other actions here
+                return true;
+            } else {
+                // Form is not valid, prevent submission
+                return false;
+            }
+        }
+    
+        function validateAddressForm() {
+            // Add any additional validation for the address form here if needed
+        }
+    </script>
+    
+      <!-- Back to Top -->
+      <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+
+      <!-- JavaScript Libraries -->
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+      <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+      <script src="{% static 'lib/slick/slick.min.js' %}"></script>
+          
+      <!-- Template Javascript -->
+      <script src="{% static 'js/main.js' %}"></script>
+  
+  
+</body>
+
+</html>

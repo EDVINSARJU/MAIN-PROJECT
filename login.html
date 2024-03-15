@@ -1,0 +1,226 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>THANGAM</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="eCommerce HTML Template Free Download" name="keywords">
+    <meta content="eCommerce HTML Template Free Download" name="description">
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+    <link href="{% static 'https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap' %}" rel="stylesheet">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'lib/slick/slick.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/slick/slick-theme.css' %}" rel="stylesheet">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+</head>
+    <style>
+        
+        .header {
+            text-align: center;
+            background-color: #fff; /* Change the background color as needed */
+            padding: 20px 0;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+  
+        #login-section {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        #login-section .row .col-md-6 img {
+            width: 100%; 
+            max-height: 450px;
+            border-radius: 10px; 
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+        }
+        
+        #login-section .row .col-md-6 {
+            padding: 20px;
+            margin-top: 10px;
+            margin-bottom: 10px; 
+            background-color: white;
+        }
+        
+        #login-section table {
+            width: 100%; 
+            border-collapse: collapse;
+            margin-top: 10px; 
+        }
+        
+        #login-section th, #login-section td {
+            border: 1px solid #ddd; 
+            padding: 8px; 
+            text-align: left; 
+        }
+        
+        #login-section th {
+            background-color: #f2f2f2; /* Add a background color for table header cells */
+        }
+        .footer {
+            text-align: center;
+            background-color: #fff; /* Change the background color as needed */
+            padding: 10px 0;
+            margin: 0; /* Set margin to 0 to remove space */
+            position: absolute;
+            bottom: 0;
+            left: 0; /* Add this line to ensure footer starts from the left edge */
+            width: 100%;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .footer p {
+            margin: 0; /* Set margin to 0 to remove space */
+            padding: 0; /* Set padding to 0 to remove space */
+        }
+        
+        
+    
+    </style>
+    <body>
+        <!-- Nav Bar Start -->
+        <div class="nav">
+            <div class="container-fluid">
+                <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+                    <a href="#" class="navbar-brand"></a>
+                    <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>        
+    
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav ml-auto"> <!-- Add ml-auto class to move other buttons to the right -->
+                            <a href="" class="nav-item nav-link active"></a>                            
+                            <div class="nav-item dropdown">
+                               
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+        <div class="header">
+            <h1>Thangam Jewellery</h1>
+        </div>
+    
+            <div id="login-section">
+                <div class="row">
+                    <div class="col-md-6">
+                        <img src="{% static 'img/aa.jpg' %}" alt="Image Description">
+                    </div>
+                
+                <div class="card-body">
+                    <form id="login" action="" method="POST">
+                        {% csrf_token %}
+                        <h3 class="text-center">Login</h3>
+                        <div class="form-group">
+                            <label for="username">Username</label>
+                            <input type="text" id="username" name="username" class="form-control" required>
+                            <div class="error-message" id="username-error"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <input type="password" id="password" name="password" class="form-control" required>
+                            <div class="error-message" id="password-error"></div>
+                        </div>
+                        &nbsp;
+                        <p>Forgot your password? <a href="{% url 'password_reset' %}">Reset it here.</a></p>
+        
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">Login</button>
+                        </div>
+                    </form>
+                    <!-- Sign Up Link -->
+                    <div class="text-center mt-3">
+                        <p>Don't have an account <a href="{% url 'register' %}">| Sign Up</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer">
+                <p>&copy; 2023 Thangam Jewellery - All rights reserved</p>
+                <p><a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a></p>
+            </div>
+            <script>
+
+                {% if messages %}
+        {% for message in messages %}
+            // Check the message level for the type (e.g., success, error)
+            {% if message.tags == 'success' %}
+                alert("Success: {{ message }}");
+            {% elif message.tags == 'error' %}
+                alert("Error: {{ message }}");
+            {% else %}
+                alert("Info: {{ message }}");
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+                document.addEventListener("DOMContentLoaded", function () {
+                    const form = document.getElementById('login');
+                    const usernameInput = document.getElementById('username');
+                    const passwordInput = document.getElementById('password');
+                    const usernameError = document.getElementById('username-error');
+                    const passwordError = document.getElementById('password-error');
+            
+                    function validateUsername() {
+                        if (usernameInput.value.trim() === '') {
+                            usernameInput.classList.add('is-invalid');
+                            usernameError.textContent = 'Username is required';
+                            return false;
+                        } else {
+                            usernameInput.classList.remove('is-invalid');
+                            usernameError.textContent = '';
+                            return true;
+                        }
+                    }
+            
+                    function validatePassword() {
+                        if (passwordInput.value.trim() === '') {
+                            passwordInput.classList.add('is-invalid');
+                            passwordError.textContent = 'Password is required';
+                            return false;
+                        } else {
+                            passwordInput.classList.remove('is-invalid');
+                            passwordError.textContent = '';
+                            return true;
+                        }
+                    }
+            
+                    // Function to validate username in real-time
+                    usernameInput.addEventListener('input', validateUsername);
+            
+                    // Function to validate password in real-time
+                    passwordInput.addEventListener('input', validatePassword);
+            
+                    // Form submission validation
+                    form.addEventListener('submit', function (e) {
+                        let valid = true;
+            
+                        // Additional validation logic can be added here if needed
+                        if (!validateUsername()) {
+                            valid = false;
+                        }
+            
+                        if (!validatePassword()) {
+                            valid = false;
+                        }
+            
+                        if (!valid) {
+                            e.preventDefault();
+                        }
+                    });
+                });
+                
+            </script>
+            
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+    <script src="{% static 'lib/easing/easing.min.js' %}"></script>
+    <script src="{% static 'lib/slick/slick.min.js' %}"></script>
+
+    <!-- Template Javascript -->
+    <script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>

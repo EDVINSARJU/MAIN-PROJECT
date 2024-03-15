@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Other head elements -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <style>
+        #pay-button {
+            padding: 10px 20px;
+            background-color: #F42D12;
+            border: none;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+        <button id="pay-button">Proceed to payment</button>
+    </center>
+    
+    <script>
+        var options = {
+            key: '{{ razorpay_api_key }}',
+            amount: '{{ amount }}',
+            currency: '{{ currency }}',
+            name: 'Thangam Jewellery',
+            description: 'Security Amount',
+            image: "{% static 'img/logoo.png' %}",
+            prefill: {
+                name: 'Your Name',
+                email: 'your_email@example.com',
+            },
+            theme: {
+                color: '#F37254',
+            },
+            handler: function(response) {
+                // This function will be called on successful payment
+                console.log(response);
+                
+                // Send payment data to the server to process
+                var payment_id = response.razorpay_payment_id;
+                var order_id = response.razorpay_order_id;
+                var signature = response.razorpay_signature;
+                
+                // Redirect to the server endpoint to process the payment
+                window.location.href = '/payment_success/?payment_id=' + payment_id + '&order_id=' + order_id + '&signature=' + signature;
+            },
+        };
+    
+        var rzp = new Razorpay(options);
+    
+        document.getElementById('pay-button').onclick = function () {
+            rzp.open();
+        };
+    </script>
+</body>
+</html>
