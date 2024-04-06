@@ -78,6 +78,7 @@ class UserProfile(models.Model):
             user_role = 'Customer'
         return user_role
     from django.db import models
+    
 
 class Product(models.Model):
     product_id = models.AutoField(primary_key=True)
@@ -96,8 +97,9 @@ class Product(models.Model):
     stone_cost = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     gst_rate = models.DecimalField(max_digits=5, decimal_places=2, default=0)
     sale_price = models.DecimalField(max_digits=10, decimal_places=2, blank=True, null=True)
-    gold_weight = models.DecimalField(max_digits=10, decimal_places=2, default=0) # New field for gold weight
-    
+    gold_weight = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    estimated_purity = models.FloatField(null=True, blank=True)
+        
     def calculate_sale_price(self):
         if self.discount is not None:
             discounted_price = self.price - (self.price * (self.discount / 100))
@@ -115,20 +117,41 @@ class Product(models.Model):
 
         # Calculate sale price without saving it to the instance
         self.sale_price = self.calculate_sale_price()
+        
+        try:
+            gold_item = self.gold_item
+        except GoldItemNew.DoesNotExist:
+            gold_item = None
 
-        print(f"self.discount: {self.discount}")
-        print(f"self.gold_weight: {self.gold_weight}")
-        print(f"self.price: {self.price}")
-        print(f"self.making_charge: {self.making_charge}")
-        print(f"self.gold_value: {self.gold_value}")
-        print(f"self.stone_cost: {self.stone_cost}")
-        print(f"self.gst_rate: {self.gst_rate}")
-        print(f"self.sale_price: {self.sale_price}")
+        if gold_item and gold_item.volume > 0:
+            known_density = 19.32  # Known density of pure gold (in g/cm^3)
+            density = self.gold_weight / gold_item.volume
+            self.estimated_purity = (density / known_density) * 100
 
         super(Product, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.product_name
+    
+    
+    
+    
+class GoldItemNew(models.Model):
+    product = models.OneToOneField('Product', on_delete=models.CASCADE, related_name='gold_item')
+    weight = models.FloatField()
+    volume = models.FloatField()
+    calculated_purity = models.FloatField(null=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if self.calculated_purity is None:
+            # Calculate estimated purity if not provided
+            known_density = 19.32  # Known density of pure gold (in g/cm^3)
+            density = self.weight / self.volume
+            self.calculated_purity = (density / known_density) * 100
+        super().save(*args, **kwargs)
+    
+    
+    
     
     
 from django.db import models
@@ -144,29 +167,19 @@ class ShoppingCart(models.Model):
         return self.quantity * self.product.sale_price
 
 
-class Order(models.Model):
-    user = models.ForeignKey(CustomUser,on_delete=models.CASCADE)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2)
-    order_date = models.DateTimeField(auto_now_add=True)
-    # Add other fields as needed
-
-    def __str__(self):
-        return f"Order #{self.id} - User: {self.user.username}"
-    
-    
-class OrderedProduct(models.Model):
-    order = models.ForeignKey(Order, on_delete=models.CASCADE)
-    product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    total_price = models.DecimalField(max_digits=10, decimal_places=2)
-
-    def __str__(self):
-        return f"Order #{self.order.id} - Product: {self.product.name} - Total Price: {self.total_price}"
 
 
 
 
 
-# models.py
+
+
+
+
+
+
+
+
 
 from django.db import models
 
@@ -184,9 +197,6 @@ class Subcategory(models.Model):
         return self.name
 
 
-
-
-# models.py
 from django.db import models
 
 class Feedback(models.Model):
@@ -194,3 +204,36 @@ class Feedback(models.Model):
     email = models.EmailField()
     subject = models.CharField(max_length=200)
     message = models.TextField()
+
+
+
+from django.db import models
+
+class User(models.Model):
+    username = models.CharField(max_length=100)
+    email = models.EmailField()
+    phone_number = models.CharField(max_length=20)
+    pincode = models.CharField(max_length=10)
+    address = models.TextField()
+
+    def __str__(self):
+        return self.username
+
+
+
+
+
+
+
+
+
+
+
+class Payment(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    product = models.ForeignKey(Product, on_delete=models.CASCADE)
+    razorpay_payment_id = models.CharField(max_length=255)
+    razorpay_order_id = models.CharField(max_length=255)
+    razorpay_signature = models.CharField(max_length=255)
+    payment_status = models.CharField(max_length=20)
+    payment_date = models.DateTimeField(auto_now_add=True)

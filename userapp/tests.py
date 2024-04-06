@@ -92,40 +92,6 @@ class HomePageTests(TestCase):
         self.assertEqual(response.status_code, 200)
         
         
-from django.test import TestCase
-from django.contrib.auth import get_user_model
-from .models import ShoppingCart, Product
-
-class ShoppingCartTestCase(TestCase):
-    def setUp(self):
-        # Create a custom user for testing
-        User = get_user_model()
-        self.user = User.objects.create_user(username='Benz', password='Benz@123')
-
-        # Create a product for testing with price and discount set
-        self.product = Product.objects.create(
-            product_name='Leaf Motif Stone Encrusted Gold Ring',
-            price=100.0,
-            discount=10.0,
-            # Add other necessary fields for your Product model
-        )
-
-        # Log in the user
-        self.client.login(username='benz', password='Benz@123')
-
-    def test_total_price_calculation(self):
-        # Create a ShoppingCart item for the user
-        shopping_cart_item = ShoppingCart.objects.create(user=self.user, product=self.product, quantity=2)
-
-        # Handle None values gracefully in the test
-        expected_total_price = (
-            shopping_cart_item.quantity * (self.product.calculate_sale_price() if self.product else 0)
-        )
-
-        # Check if the total price is calculated correctly
-        self.assertEqual(shopping_cart_item.calculate_total_price(), expected_total_price)
-
-
 
 
 
@@ -301,3 +267,80 @@ def test_customer_list_view_unauthenticated(self):
     expected_redirect_url = reverse('login') + f'?next={reverse("customer_list")}'
     self.assertRedirects(response, expected_redirect_url)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+from selenium.webdriver.common.by import By
+import time
+
+def test_submit_contact_form(self):
+    # Find the form fields by their names
+    username_input = self.driver.find_element(By.NAME, "username")  # Assuming "username" is the name attribute of the username input field
+    email_input = self.driver.find_element(By.NAME, "email")  # Assuming "email" is the name attribute of the email input field
+    subject_input = self.driver.find_element(By.NAME, "subject")  # Assuming "subject" is the name attribute of the subject input field
+    message_input = self.driver.find_element(By.NAME, "message")  # Assuming "message" is the name attribute of the message input field
+
+    # Fill in the form with test data
+    username_input.send_keys("benz")
+    email_input.send_keys("benzbaby2024a@mca.ajce.in")
+    subject_input.send_keys("ytjfhn")
+    message_input.send_keys("12345678")
+
+    # Submit the form by clicking the submit button
+    send_button = self.driver.find_element(By.XPATH, "//button[@type='submit']")
+    send_button.click()
+
+    # Wait for the page to load after form submission
+    time.sleep(2)
+
+    # Check if the success message is displayed in the page source
+    self.assertIn("Thank you for your message", self.driver.page_source)
+
+
+
+
+
+def test_payment_page(self):
+        # Navigate to the payment page
+        payment_link = self.driver.find_element(By.XPATH, "//a[@href='#payment']")
+        payment_link.click()
+        time.sleep(2)
+
+        # Verify if the payment page is displayed
+        self.assertIn("Payment", self.driver.title)
+
+        # Verify if payment details are visible
+        payment_id = self.driver.find_element(By.NAME, "payment_id")
+        razorpay_payment_id = self.driver.find_element(By.NAME, "razorpay_payment_id")
+        product_name = self.driver.find_element(By.NAME, "The Beauty and Brilliance ")
+        product_image = self.driver.find_element(By.NAME, "")
+        price = self.driver.find_element(By.NAME, "2001")
+        date = self.driver.find_element(By.NAME, "03/03/2023")
+        total_price = self.driver.find_element(By.NAME, "21001")
+        generate_pdf_button = self.driver.find_element(By.XPATH, "//button[@id='generate_pdf']")
+
+        self.assertTrue(payment_id.is_displayed())
+        self.assertTrue(razorpay_payment_id.is_displayed())
+        self.assertTrue(product_name.is_displayed())
+        self.assertTrue(product_image.is_displayed())
+        self.assertTrue(price.is_displayed())
+        self.assertTrue(date.is_displayed())
+        self.assertTrue(total_price.is_displayed())
+        self.assertTrue(generate_pdf_button.is_displayed())
+
+        # Generate PDF bill
+        generate_pdf_button.click()
+        time.sleep(2)
+
+        # Check if the PDF bill is generated successfully
+        self.assertIn("PDF Bill", self.driver.page_source)

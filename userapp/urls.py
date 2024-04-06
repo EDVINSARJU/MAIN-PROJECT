@@ -5,6 +5,8 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from .views import featured_product
+
+
 urlpatterns = [
     path('', featured_product, name='product_details'),
     path('', featured_product, name='loginview'),
@@ -34,16 +36,23 @@ urlpatterns = [
     path('product_details/<int:product_id>/', views.product_details, name='product_details'),
     path('cutomerprofile/', views.profile, name='customerprofile'),
     path('edit_product/<int:product_id>/', views.edit_product, name='edit_product'),
-    path('add-to-cart/<int:product_id>/',views.add_to_cart, name='add_to_cart'),
-    path('view_cart/<int:product_id>/', views.view_cart, name='view_cart'),
-     path('remove_from_cart/<int:item_id>/', views.remove_from_cart, name='remove_from_cart'),
-     path('add_product/', views.add_product, name='add_product'),
-     path('category/', views.category_view, name='category'),
-    path('payment/', views.rentnxt, name='payment'), 
+    path('add_product/', views.add_product, name='add_product'),
+    path('category/', views.category_view, name='category'),
+    path('orderlist/', views.order_list, name='order_list'), 
+    path('submit-feedback/', views.feedback_submit, name='feedback_submit'),
+    path('feedbacks/', views.feedback_list, name='feedback_list'),
+    path('calculate_purity', views.golditem_list, name='calculate_purity'),
+    path('golditem/<int:gold_item_id>/download-pdf/', views.generate_pdf, name='generate_pdf'),     
+    path('delete_product/<int:product_id>/',views. delete_product, name='delete_product'),
+    path('product_details/<int:gold_item_id>/product_pdf/', views.product_pdf, name='product_pdf'),
+    path('product_data_endpoint/', views.product_data_endpoint_view, name='product_data_endpoint'),
+    path('paymenthandler/', views.paymenthandler, name='paymenthandler'),
+    path('orderdetails/', views.orderdetails, name='orderdetails'),
+    path('manage/', views.manage, name='manage'), 
+    path('payment_success/', views.payment_success, name='payment_success'),
+    path('generate-pdf-bill/<int:payment_id>/', views.generate_pdf_bill, name='generate_pdf_bill'),
     
-    path('feedback/',views.feedback_view, name='feedback_form'),
-    path('orderlist/', views.orderlist, name='orderlist'),
-    
-    ]
+
+ ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
