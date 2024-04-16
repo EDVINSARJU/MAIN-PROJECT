@@ -1,23 +1,80 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BILL</title>
+    <title>bill</title>
+    <style>
+        body {
+            font-family: sans-serif;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border: 1px solid black; /* Add border to the table */
+        }
+        table, th, td {
+            border: 1px solid black; /* Add border to cells */
+            padding: 5px;
+        }
+        th {
+            text-align: left;
+        }
+    </style>
 </head>
 <body>
-    <h1>BILL</h1>
-    <div>
-        <h2>{{ product.product_name }}</h2>
-        <p>Purity of Gold: {{ product.purity_of_gold }}</p>
-        <img src="{{ product.product_image.url }}" alt="Product Image">
-        <p>Price: ₹{{ product.price }}</p>
-        <p>Discount: ₹{{ product.discount }}</p>
-        <p>Making Charge: ₹{{ product.making_charge }}</p>
-        <p>GST Rate: {{ product.gst_rate }}%</p>
-        <p>Sale Price: ₹{{ product.sale_price }}</p>
-        <p>Gold Weight: {{ product.gold_weight }} grams</p>
-    </div>
+    <header>
+              
+        <h1>THANGAM JEWELLERY</h1>
+        <p><br>Ph:8940752414<br> State: Tamil Nadu</p>
+    </header>
+    <section>
+        <h2>To Cash</h2>
+        <p>Date: <span id="paymentDate">{{ payment_date }}</span></p>
+    </section>
+    <section>
+        <table>
+            <thead>
+                <tr>
+                    <th>No of Products</th>
+                    <th>Product Name</th>
+                    <th>Purity</th>
+                    <th>Gold Weight</th>
+                    <th>Stone Cost</th>
+                    <th>Price</th>
+                    <th>Making Charge</th>
+                    <th>Gold Value</th>
+                    <th>GST Rate</th>
+                    <th>Total Price</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ num_of_products }}</td>
+                    <td>{{ product_name }}</td>
+                    <td>{{ purity }}</td>
+                    <td>{{ gold_weight }}</td>
+                    <td>{{ stone_cost }}</td>
+                    <td>{{ price }}</td>
+                    <td>{{ making_charge }}</td>
+                    <td>{{ gold_value }}</td>
+                    <td>{{ gst_rate }}</td>
+                    <td>{{ total_price }}</td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="10">&nbsp;</td> <!-- Add space -->
+                </tr>
+                <tr>
+                    <th colspan="9">TOTAL:</th>
+                    <td>{{ total_price }}</td> <!-- Display Total Price -->
+                </tr>
+            </tfoot>
+        </table>
+    </section>
+    <script>
+        document.getElementById('paymentDate').textContent = '{{ payment_date }}';
+    </script>
 </body>
 </html>

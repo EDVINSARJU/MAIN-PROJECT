@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>WELCOME TO THANGAM JEWELS </title>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="eCommerce HTML Template Free Download" name="keywords">
+        <meta content="eCommerce HTML Template Free Download" name="description">
+
+        <!-- Favicon -->
+        <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+        <!-- Google Fonts -->
+        <link href="{% static 'https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap' %}" rel="stylesheet">
+
+        <!-- CSS Libraries -->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+        <link href="{% static 'lib/slick/slick.css' %}" rel="stylesheet">
+        <link href="{% static 'lib/slick/slick-theme.css' %}" rel="stylesheet">
+
+        <!-- Template Stylesheet -->
+        <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        <title>Manage Customer Information</title>
+        <style>
+            /* General Styles */
+            body {
+                font-family: 'Open Sans', sans-serif;
+                background-color: #ffffff; /* Set background color to white */
+                margin: 0; /* Remove default body margin */
+                padding: 0; /* Remove default body padding */
+            }
+            
+            .container-fluid {
+                padding-right: 15px;
+                padding-left: 15px;
+                margin-right: auto;
+                margin-left: auto;
+            }
+            
+            .edit-container {
+                max-width: 1200px; /* Set max width for the edit container */
+                margin: 0 auto; /* Center the edit container horizontally */
+                padding: 20px; /* Add padding inside the edit container */
+            }
+            
+            h1 {
+                color: #333; /* Set heading color */
+                margin-bottom: 20px; /* Add bottom margin to the heading */
+            }
+            
+            .contact-form {
+                background-color: #ff57330; /* Set background color to red */
+                padding: 20px; /* Add padding inside the contact form */
+                border-radius: 5px; /* Add border radius to the contact form */
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add box shadow to the contact form */
+            }
+            
+            .contact-form label {
+                font-weight: bold; /* Make form labels bold */
+            }
+            
+            .contact-form input[type="text"],
+            .contact-form input[type="email"],
+            .contact-form input[type="tel"],
+            .contact-form textarea {
+                width: 100%; /* Set input fields width to 100% */
+                padding: 10px; /* Add padding to input fields */
+                margin-bottom: 15px; /* Add bottom margin to input fields */
+                border-radius: 3px; /* Add border radius to input fields */
+                border: 1px solid #ccc; /* Add border to input fields */
+                box-sizing: border-box; /* Include padding and border in input field's total width */
+            }
+            
+            .contact-form textarea {
+                resize: vertical; /* Allow vertical resizing of the textarea */
+            }
+            
+            .error {
+                border: 1px solid red !important;
+            }
+        </style>
+    </head>
+    <body>
+      <center>  <div class="edit-container">
+            <h1>Customer Information</h1>
+            <div class="col-md-7">
+                <section id="edit-customer-info">
+                    <div class="contact-form">
+                        <form method="post" action="{% url 'manage' %}" id="customer-form">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" name="name" id="name" value="{{ user.username }}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" name="email" id="email" value="{{ user.email }}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="phone">Phone</label>
+                                    <input type="tel" class="form-control" name="phone" id="phone" value="{{ user.phone_number }}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="pincode">Pincode</label>
+                                    <input type="text" class="form-control" name="pincode" id="pincode" value="{{ user.pincode }}" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="address">Address</label>
+                                    <textarea class="form-control" name="address" id="address" rows="4" required>{{ user.address }}</textarea>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Update Details</button>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div></center>
+        
+        <script>
+            // Get the form and input fields
+            const form = document.getElementById('customer-form');
+            const nameInput = document.getElementById('name');
+            const emailInput = document.getElementById('email');
+            const phoneInput = document.getElementById('phone');
+            const pincodeInput = document.getElementById('pincode');
+        
+            // Add event listeners for input validation
+            nameInput.addEventListener('input', validateName);
+            emailInput.addEventListener('input', validateEmail);
+            phoneInput.addEventListener('input', validatePhone);
+            pincodeInput.addEventListener('input', validatePincode); // Add pincode validation listener
+        
+            function validateName() {
+                const nameValue = nameInput.value.trim();
+                if (nameValue.length === 0 || nameValue.length > 20) {
+                    nameInput.classList.add('error');
+                } else {
+                    nameInput.classList.remove('error');
+                }
+            }
+        
+            function validateEmail() {
+                const emailValue = emailInput.value.trim();
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(emailValue)) {
+                    emailInput.classList.add('error');
+                } else {
+                    emailInput.classList.remove('error');
+                }
+            }
+        
+            function validatePhone() {
+                const phoneValue = phoneInput.value.trim();
+                const phonePattern = /^\d{10}$/;
+                if (!phonePattern.test(phoneValue)) {
+                    phoneInput.classList.add('error');
+                } else {
+                    phoneInput.classList.remove('error');
+                }
+            }
+        
+            function validatePincode() {
+                const pincodeValue = pincodeInput.value.trim();
+                const pincodePattern = /^\d{6}$/; // Regex pattern for 6-digit pincode
+                if (!pincodePattern.test(pincodeValue)) {
+                    pincodeInput.classList.add('error');
+                } else {
+                    pincodeInput.classList.remove('error');
+                }
+            }
+        
+            // Add form submission event listener
+            form.addEventListener('submit', (event) => {
+                event.preventDefault(); // Prevent form submission if validation fails
+        
+                // Perform final validation before submitting the form
+                validateName();
+                validateEmail();
+                validatePhone();
+                validatePincode(); // Validate pincode before submission
+        
+                // Check if any  
+                const errorInputs = form.querySelectorAll('.error');
+                if (errorInputs.length === 0) {
+                    // If no errors, submit the form
+                    form.submit();
+                } else {
+                    // If there are errors, display an alert or message
+                    alert('Please correct the errors before submitting the form.');
+                }
+            });
+        </script>  
+        
+<br><br>
+    <!-- Footer section -->
+    <div class="footer">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <h2>Get in Touch</h2>
+                        <div class="contact-info">
+                            <p><i class="fa fa-map-marker"></i>vellore, Tamil Nadu, India</p>
+                            <p><i class="fa fa-envelope"></i>edvinsarju@gmail.com</p>
+                            <p><i class="fa fa-phone"></i>8923567845</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <h2>Follow Us</h2>
+                        <div class="contact-info">
+                            <div class="social">
+                                <a href=""><i class="fab fa-facebook-f"></i></a>
+                                <a href=""><i class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <h2>Company Info</h2>
+                        <ul>
+                            <li><a href="#">About Us</a></li>
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms & Condition</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-lg-3 col-md-6">
+                    <div class="footer-widget">
+                        <h2>Purchase Info</h2>
+                        <ul>
+                            <li><a href="#">Payment Policy</a></li>
+                            <li><a href="#">Shipping Policy</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row payment align-items-center">
+                <div class="col-md-6">
+                    <div class="payment-method">
+                        <h2>We Accept:</h2>
+                        <img src="{% static 'img/payment-method.png' %}" alt="Payment Method" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer bottom section -->
+    <div class="footer-bottom">
+        <div class="col-md-5 copyright">
+            <p>Copyright &copy; <a href="#">THANGAM JEWELLERY</a>. All Rights Reserved</p>
+        </div>
+    </div>
+   
+    
+   
+</body>
+
+</html>

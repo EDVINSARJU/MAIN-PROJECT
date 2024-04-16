@@ -1,18 +1,194 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <title>ORDER LIST</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="eCommerce HTML Template Free Download" name="keywords">
+    <meta content="eCommerce HTML Template Free Download" name="description">
+
+    <!-- Favicon -->
+    <link href="{% static 'img/favicon.ico' %}" rel="icon">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400|Source+Code+Pro:700,900&display=swap" rel="stylesheet">
+
+    <!-- CSS Libraries -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="{% static 'lib/slick/slick.css' %}" rel="stylesheet">
+    <link href="{% static 'lib/slick/slick-theme.css' %}" rel="stylesheet">
+
+    <!-- Template Stylesheet -->
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+
+    <style>
+        .product-image {
+            max-width: 100px; /* Adjust the maximum width as needed */
+            height: auto; /* Maintain aspect ratio */
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff; /* Set background color to white */
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        .confirmation-message {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .btn-generate-pdf {
+            margin-left: auto; /* Align button to the right */
+        }
+    </style>
+</head>
+<div class="nav">
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-md bg-dark navbar-dark">
+            <a href="#" class="navbar-brand"></a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+            </button>        
+
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav ml-auto"> 
+                    <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                        <div class="navbar-nav ml-auto">
+                           <!-- Add this block to display the username if the user is authenticated -->
+            {% if user.is_authenticated %}
+              <a href="" class="nav-item nav-link" style="color: white;">{{ user.username }}</a>
+              <a href="{% url 'logout' %}" class="nav-item nav-link" style="color: white;">Logout</a>
+            {% else %}
+            <a href="{% url 'login' %}" class="nav-item nav-link" style="color: white;">Login</a>
+            {% endif %}
+                   
+                   
+                    </div>
+                </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+</div>
     <title>Order List</title>
     <style>
-        /* Your CSS styles here */
+        /* Global styles */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+            background-color: #fff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+            font-weight: bold;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        
+        ul {
+            margin: 0;
+            padding: 0;
+        }
+        
+        li {
+            list-style-type: none;
+            margin-bottom: 5px;
+        }
+        
+        img.product-image {
+            max-width: 80px;
+            height: auto;
+        }
+        
+        /* Responsive styles */
+        @media screen and (max-width: 768px) {
+            table {
+                font-size: 14px;
+            }
+        
+            img.product-image {
+                max-width: 60px;
+            }
+        }
+        
+        /* One-column layout */
+        @media screen and (max-width: 768px) {
+            table {
+                display: block;
+                width: 100%;
+                overflow-x: auto;
+            }
+        
+            th, td {
+                display: block;
+                text-align: left;
+            }
+        
+            th {
+                position: sticky;
+                top: 0;
+                background-color: #f2f2f2;
+                z-index: 1;
+            }
+        
+            td {
+                border-top: 1px solid #ddd;
+            }
+        
+            td:first-child {
+                padding-top: 20px; /* Add padding to first cell for spacing */
+            }
+        }
+        
+
     </style>
 </head>
 <body>
-    <h1>USER DETAILS</h1>
+    <h1>CUSTOMER ORDERED PRODUCT DETAILS</h1>
     <table>
         <thead>
             <tr>
@@ -21,7 +197,7 @@
                 <th>Phone Number</th>
                 <th>Pincode</th>
                 <th>Address</th>
-                <th>Ordered Products</th> <!-- New column for ordered products -->
+                <th>Ordered Products</th>
             </tr>
         </thead>
         <tbody>
@@ -34,8 +210,11 @@
                 <td>{{ customer.address }}</td>
                 <td>
                     <ul>
-                        {% for order in customer.orders.all %}
-                        <li>{{ order.product.name }}</li> <!-- Assuming 'orders' is the related name for orders in the User model, and 'product' is the related name for products in the Order model -->
+                        {% for order in customer.orders %}
+                        <li>
+                            <img src="{{ order.product.product_image.url }}" alt="{{ order.product.product_name }}" style="max-width: 100px;">
+                            {{ order.product.product_name }} - ₹{{ order.product.price }}
+                        </li>
                         {% endfor %}
                     </ul>
                 </td>
@@ -43,52 +222,5 @@
             {% endfor %}
         </tbody>
     </table>
-
-    <h1>Paid Orders</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Order ID</th>
-                <th>Product Name</th>
-                <th>Amount Paid</th>
-                <th>Payment Status</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for order in paid_orders %}
-            <tr>
-                <td>{{ order.id }}</td> <!-- Assuming order ID is stored in 'id' field -->
-                <td>{{ order.product.name }}</td> <!-- Assuming 'product' is the related name for products in the Order model -->
-                <td>{{ order.amount_paid }}</td> <!-- Assuming the amount paid is stored in 'amount_paid' field -->
-                <td>Paid</td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-    <!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Payment Confirmation</title>
-    </head>
-    <body>
-        <h1>Payment Confirmation</h1>
-        <p>Username: {{ username }}</p>
-        <h2>Ordered Products:</h2>
-        <ul>
-            {% for ordered_product in ordered_products %}
-                <li>
-                    <h3>{{ ordered_product.product.name }}</h3>
-                    <p>Price: ₹{{ ordered_product.total_price }}</p>
-                    <!-- Add any other product details you want to display -->
-                </li>
-            {% endfor %}
-        </ul>
-        <!-- You can add payment-related content here -->
-    </body>
-    </html>
-    
-    
 </body>
 </html>

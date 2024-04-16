@@ -45,15 +45,9 @@
                                 {% else %}
                                 <a href="{% url 'login' %}" class="nav-item nav-link" style="color: white;">Login</a>
                                 {% endif %}
-
+                                <a href="{% url 'manage' %}" class="nav-item nav-link active">Manage</a>
                                         <a href="{% url 'contact' %}" class="nav-item nav-link active">Contact Us</a>
-                                        {% if user.is_authenticated %}
-    <a href="{% url 'view_cart' product_id=2 %}" class="nav-item nav-link active">Cart</a>
-{% else %}
-    <a href="{% url 'login' %}" class="nav-item nav-link active">Cart</a>
-{% endif %}
-  
-                                                                           
+                                                           
                                         <div class="nav-item dropdown">
                                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User account</a>
                                             <div class="dropdown-menu">
@@ -209,15 +203,7 @@
                     <a href="" class="btn wishlist">
                       <i class="fa fa-heart"></i>                  
                     </a>
-                    {% if user.is_authenticated %}
-    <a href="{% url 'view_cart' product_id=2 %}" class="btn cart">
-        <i class="fa fa-shopping-cart"></i>
-    </a>
-{% else %}
-    <a href="{% url 'login' %}" class="btn cart">
-        <i class="fa fa-shopping-cart"></i>
-    </a>
-{% endif %}
+     
 
                     </a>
                   </div>

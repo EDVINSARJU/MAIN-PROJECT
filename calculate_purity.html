@@ -186,7 +186,20 @@
             padding: 20px;
             padding-left: 40px; /* Additional padding for content */
         }
-     
+        
+        /* Style for the canvas element */
+        canvas#productChart {
+            max-width: 800px; /* Set the maximum width */
+            max-height: 400px; /* Set the maximum height */
+            margin: 20px auto; /* Center the canvas horizontally and add margin */
+            display: block; /* Ensure the canvas is displayed as a block element */
+            overflow-x: auto; /* Add horizontal scroll if needed */
+        }
+        
+        /* Adjust the font size for the product labels */
+        #productChart .chartjs-render-monitor .chartjs-tooltip .label {
+            font-size: 12px; /* Change the font size as needed */
+        }
         
             
     </style>
@@ -278,7 +291,7 @@
                     <td>{{ gold_item.product.product_name }}</td>
                     <td>{{ gold_item.weight }}</td>
                     <td>{{ gold_item.volume }}</td>
-                    <td>{{ gold_item.calculated_purity }}</td>
+                    <td>{{ gold_item.product.predicted_purity_percentage }}</td>
                     {% if gold_item.product.product_image %}
                     <td><img src="{{ gold_item.product.product_image.url }}" alt="Product Image" class="product-image"></td>
                     {% else %}
@@ -289,6 +302,92 @@
                 {% endfor %}
             </tbody>
         </table>
-    </div>
+<head>
+
+  
+
+
+
+
+
+
+
+
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Data Graph</title>
+    <!-- Include Chart.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <canvas id="productChart" width="800" height="400"></canvas>
+
+    <script>
+        // Fetch data from the product_data_endpoint_view
+        fetch('/product_data_endpoint/')
+            .then(response => response.json())
+            .then(data => {
+                // Extract labels and data from the fetched data
+                const labels = data.labels;
+                const weightData = data.data.weight;
+                const volumeData = data.data.volume;
+                const purityData = data.data.purity_of_gold;
+                const estimatedPurityData = data.data.predicted_purity_percentage;
+
+
+                
+                // Create a Chart.js chart
+                const ctx = document.getElementById('productChart').getContext('2d');
+                const productChart = new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'Weight (grams)',
+                            data: weightData,
+                            backgroundColor: 'rgba(255, 99, 132, 0.5)'
+                        }, {
+                            label: 'Volume',
+                            data: volumeData,
+                            backgroundColor: 'rgba(54, 162, 235, 0.5)'
+                        },
+                           
+                        {
+                            label: 'predicted_purity_percentage (%)',
+                            data: estimatedPurityData,
+                            backgroundColor: 'rgba(75, 192, 192, 0.5)'
+                        }]
+                    },
+                    options: {
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        },
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top', // Display legend at the top
+                                labels: {
+                                    // Adjust font size and padding for legend labels
+                                    fontSize: 14,
+                                    padding: 20
+                                }
+                            },
+                            datalabels: { // Plugin for formatting labels
+                                anchor: 'end',
+                                align: 'end',
+                                formatter: function(value) {
+                                    // Split the label into multiple lines
+                                    return value.split('\n');
+                                }
+                            }
+                        }
+                    }
+                });
+            })
+            .catch(error => console.error('Error fetching data:', error));
+    </script>
 </body>
 </html>

@@ -305,18 +305,35 @@
                                 <label for="gold-value">Gold Value</label>
                                 <input type="number" id="gold-value" name="gold-value" class="form-control" oninput="calculateTotalPrice()">
                             </div>
+
+
+
+
+
+
+
+
+
                             <div class="form-group">
-                                <label for="gold-weight">Gold Weight (grams)</label>
-                                <input type="number" id="gold-weight" name="gold-weight" class="form-control" oninput="calculateTotalPrice(); calculatePurity()" required>
+                                <label for="gold-weight">Mass (grams)</label>
+                                <input type="text" id="gold-weight" name="gold-weight" class="form-control" oninput="calculateTotalPrice(); calculatePurity()" required>
                             </div>
-                            
-                           
-                            
                             <div class="form-group">
                                 <label for="volume">Volume (cm^3)</label>
-                                <input type="number" id="volume" name="volume" class="form-control" oninput="calculatePurity()" required>
+                                <input type="text" id="volume" name="volume" class="form-control" oninput="calculatePurity()" required>
                             </div>
-                            <div id="purity-result"></div> <!-- Inserted div here --><br>
+                            <div id="purity-result"></div> <!-- Display predicted purity percentage here -->
+                            
+
+
+
+
+                            
+
+
+
+
+                            
                             <div class="form-group">
                                 <label for="stone-cost">Stone Cost</label>
                                 <input type="number" id="stone-cost" name="stone-cost" class="form-control" oninput="calculateTotalPrice()">
@@ -523,20 +540,57 @@
             // Call the function to populate the options when the page loads
             populateGoldPurityOptions();
 
-
             function calculatePurity() {
                 const goldWeight = parseFloat(document.getElementById('gold-weight').value) || 0;
-                const volume = parseFloat(document.getElementById('volume').value) || 1.0; // Default to 1.0 if volume is not provided
-                const knownDensity = 19.32; // Known density of pure gold (in g/cm^3)
-                const density = goldWeight / volume;
-                const estimatedPurity = (density / knownDensity) * 100;
+                const volume = parseFloat(document.getElementById('volume').value) || 0;
             
-                // Display the calculated purity
-                document.getElementById('purity-result').innerText = `Estimated Purity: ${estimatedPurity.toFixed(2)}%`;
+                fetch('/load-csv-data/')  // Use the URL endpoint defined in Django
+                    .then(response => {
+                        if (!response.ok) {
+                            throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        const matchingRow = data.find(row => row['Weight (grams)'] === goldWeight.toString() && row['Volume (cm³)'] === volume.toString());
+                        if (matchingRow) {
+                            const predicted_purity_percentage = Math.min(matchingRow['Purity Percentage  (%)'], 100); // Limit to a maximum of 100%
+                            document.getElementById('purity-result').innerText = `Predicted Purity Percentage: ${predicted_purity_percentage}%`;
+                        } else {
+                            const density_gold_alloy = goldWeight / volume;
+                            const predicted_purity_percentage = Math.min((density_gold_alloy / 19.32) * 100, 100); // Limit to a maximum of 100%
+                            if (predicted_purity_percentage <= 100) {
+                                document.getElementById('purity-result').innerText = `Predicted Purity Percentage: ${predicted_purity_percentage}%`;
+                            } else {
+                                document.getElementById('purity-result').innerText = "Error: Predicted purity percentage is above 100%. Check input values.";
+                            }
+                        }
+                    })
+                    .catch(error => {
+                        console.error('Error fetching CSV data:', error); // Error handling
+                        document.getElementById('purity-result').innerText = "Error fetching data.";
+                    });
             }
             
             
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+    
+           
+            
+
+            
         </script>
+        
     </body>
     
     

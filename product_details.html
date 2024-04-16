@@ -269,7 +269,8 @@
                     <a href="{% url 'login' %}" class="nav-item nav-link" style="color: white;">Login</a>
                     {% endif %}
                             <a href="{% url 'contact' %}" class="nav-item nav-link active">Contact Us</a>
-                            <a href="{% url "view_cart" product_id=2 %}" class="nav-item nav-link active">Cart</a>                                    
+                            <a href="{% url 'payment_success' %}" class="nav-item nav-link active">Order history</a>
+                                                 
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">User account</a>
                                 <div class="dropdown-menu">
@@ -297,7 +298,7 @@
                 <div class="additional-fields">
                     <p><b>Purity of Gold:</b> {{ product.purity_of_gold }}</p>
                     <p><b>Volume:</b> {{ product.gold_item.volume }}</p>
-                    <p><b>Calculated Purity (%):</b> {{ product.gold_item.calculated_purity }}</p>
+                    <p><b>Calculated Purity (%):</b> {{ product.gold_item.product.predicted_purity_percentage }}</p>
                     <a href="{% url 'product_pdf' gold_item_id=product.gold_item.pk %}" class="btn btn-primary">Download PDF</a> 
                 </div>
             </div>   
@@ -312,22 +313,21 @@
                 <div class="additional-fields">
                     <p><b>Making Charge:</b>₹{{ product.making_charge }}</p>
                     <p><b>Gold Value:</b>₹{{ product.gold_value }}</p>
-                    <p><b>Gold weight:</b>{{ product.gold_weight |floatformat:"0" }}Grams</p>
+                    <p><b>Mass:</b>{{ product.gold_weight |floatformat:"0" }}Grams</p>
                     <p><b>Stone Cost:</b>₹{{ product.stone_cost }}</p>
                     <p><b>GST:</b>{{ product.gst_rate|floatformat:"0" }}%</p>
                     <p><b>Total Price:</b>₹{{ product.sale_price }}</p>
                     <div class="product-table-actions">
-                        <form method="post" action="{% url 'add_to_cart' product_id=product.product_id %}">
-                            {% csrf_token %}
-                            <button type="submit" class="buy-now-btn">Add to Cart</button>
-                        </form>
+                        <body>   
+                            <div class="btn_container">               
+                                <button class="btn" id="pay-btn">Buy Now</button>
+                            </div>
+                            </div>
+                        </body>
                     </div>    
-                </div>
-               
-                              
+                </div>              
             </div>
         </div>
-        
         <br>
         <br>    
        <br>
@@ -406,45 +406,39 @@
                 </div>
             </div>
         </div>
-<script>
 
-    
 
-    function addItemToCart(itemId) {
-        // Make an AJAX request to add the item to the cart
-        $.ajax({
-            url: '/add-to-cart/',
-            type: 'POST',
-            data: { item_id: itemId },
-            success: function(response) {
-                // Display success message from the server response
-                alert("Success: " + response.message);
-            },
-            error: function(xhr, status, error) {
-                // Display error message if something goes wrong
-                alert("Error: " + error);
-            }
-        });
-    }
-
-    // Function to handle removing items from the cart
-    function removeItemFromCart(itemId) {
-        // Make an AJAX request to remove the item from the cart
-        $.ajax({
-            url: '/remove-from-cart/',
-            type: 'POST',
-            data: { item_id: itemId },
-            success: function(response) {
-                // Display success message from the server response
-                alert("Success: " + response.message);
-            },
-            error: function(xhr, status, error) {
-                // Display error message if something goes wrong
-                alert("Error: " + error);
-            }
-        });
-    }
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+      var options = {
+         
+        // Enter the Key ID generated from the Dashboard
+        key: "{{ razorpay_merchant_key }}", 
+         
+        // Amount is in currency subunits.
+        // Default currency is INR. Hence, 
+        // 50000 refers to 50000 paise
+        amount: "{{ razorpay_amount }}", 
+        currency: "{{ currency }}",
+         
+        // Your/store name.
+        name: "THANGAM JEWELLERY", 
+         
+        // Pass the `id` obtained in the response of Step 1
+        order_id: "{{ razorpay_order_id }}", 
+        callback_url: "{{ callback_url }}",
+      };
+       
+      // initialise razorpay with the options.
+      var rzp1 = new Razorpay(options);
+       
+      // add event listener to the payment button.
+      document.getElementById("pay-btn").onclick = function (e) {
+        rzp1.open();
+        e.preventDefault();
+      };
+    </script>
  
-</script>
+
       </body>
       </html>
